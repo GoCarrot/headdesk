@@ -23,6 +23,10 @@ module Headdesk
 
       @yaml = YAML.load_file(apktool_yml)
       @sdk_info = @yaml['sdkInfo']
+
+      @android_manifest = File.open(android_manifest_xml) do |f|
+        Nokogiri::XML(f)
+      end
     end
 
     def analize
@@ -36,7 +40,11 @@ module Headdesk
         notification_compat_builder.method?('setChannelId')
       end
 
-      puts 'foo'
+      # Check all of the receivers and make sure they have backing classes
+      @android_manifest.xpath("//receiver").each do |receiver|
+        cls = find_class(receiver.attributes['name'].to_s)
+        puts "#{receiver.attributes['name']} -> #{cls.method?('onReceive')}"
+      end
     end
 
     def find_class(decl)
