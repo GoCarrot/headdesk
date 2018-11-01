@@ -11,6 +11,9 @@ module Headdesk
       "ext/apktool_#{APKTOOL_VERSION}.jar"
     end
 
+    #
+    # Run apktool command
+    #
     def self.cmd(*args)
       _stdin, stdout, stderr, wait_thr = Open3.popen3('java', '-jar', apktool_jar, *args)
       r_stdout = stdout.gets(nil)
@@ -26,8 +29,8 @@ module Headdesk
     # Unpacks an APK to the specified path
     #
     def self.unpack_to(path, destination)
-      raise ArgumentError, "File not found: #{path}" unless File.exist?(path)
-      raise ArgumentError, "Path not found: #{destination}" unless Dir.exist?(destination)
+      throw ArgumentError.new("File not found: #{path}") unless File.exist?(path)
+      throw ArgumentError.new("Path not found: #{destination}") unless Dir.exist?(destination)
 
       args = ['d', '--force', '--output', destination]
 

@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     headdesk (0.1.0)
+      nokogiri
       thor
 
 GEM
@@ -9,6 +10,9 @@ GEM
   specs:
     ast (2.4.0)
     jaro_winkler (1.5.1)
+    mini_portile2 (2.3.0)
+    nokogiri (1.8.5)
+      mini_portile2 (~> 2.3.0)
     parallel (1.12.1)
     parser (2.5.3.0)
       ast (~> 2.4.0)
