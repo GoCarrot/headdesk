@@ -26,20 +26,27 @@ module Headdesk
         return 1
       end
 
-      Dir.mktmpdir do |tmp_dir|
-        args = ['d', '--force']
+      begin
+        stdout = nil
 
-        args.concat(['--output', tmp_dir]) if destination.nil?
-        args.concat(['--output', destination]) unless destination.nil?
-
-        stdout, stderr, exit_code = Headdesk::ApkTool.cmd(*args, path)
-        unless exit_code.to_i.zero?
-          STDERR.puts stderr
-          return exit_code.to_i
+        if destination.nil?
+          # Output to tempdir, then copy to cwd if no destination specified
+          Dir.mktmpdir do |tmp_dir|
+            stdout = Headdesk::ApkTool.unpack_to(path, tmp_dir)
+            FileUtils.cp_r("#{tmp_dir}/.", Dir.pwd)
+          end
+        else
+          stdout = Headdesk::ApkTool.unpack_to(path, destination)
         end
 
-        FileUtils.cp_r("#{tmp_dir}/.", Dir.pwd) if destination.nil?
         puts stdout
+      rescue ArgumentError => e
+        STDERR.puts e
+        CLI.command_help(Thor::Base.shell.new, 'unpack')
+        return 1
+      rescue SystemError => e
+        STDERR.puts "apktool error: #{e}"
+        return 1
       end
     end
   end

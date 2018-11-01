@@ -21,5 +21,20 @@ module Headdesk
 
       [r_stdout, r_stderr, r_exit_code]
     end
+
+    #
+    # Unpacks an APK to the specified path
+    #
+    def self.unpack_to(path, destination)
+      raise ArgumentError, "File not found: #{path}" unless File.exist?(path)
+      raise ArgumentError, "Path not found: #{destination}" unless Dir.exist?(destination)
+
+      args = ['d', '--force', '--output', destination]
+
+      stdout, stderr, exit_code = Headdesk::ApkTool.cmd(*args, path)
+      raise stderr unless exit_code.to_i.zero?
+
+      stdout
+    end
   end
 end
