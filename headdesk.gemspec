@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'headdesk helps identify and solve common issues in mobile development by analizing APKs and IPAs.'
   spec.description   = ''
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = 'https://github.com/GoCarrot/headdesk'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
