@@ -10,7 +10,7 @@ module Headdesk
       #   android/content/Context
       #   android.content.Context
       def self.path_for(decl)
-        File.join(*decl.split(%r{[\/\.]}))
+        File.join(*decl.split(%r{[\/,\.]}))
       end
 
       def initialize(smali_file)
@@ -22,7 +22,7 @@ module Headdesk
       end
 
       def method(method_name)
-        /(^\.method .* #{method_name}.*;$[\s\S]*?\.end method)/.match(@smali)
+        /(^\.method .* #{method_name}.*$[\s\S]*?\.end method)/.match(@smali)
       end
     end
   end
