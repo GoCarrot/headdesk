@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'yaml'
 
 require 'headdesk/apk/class'
+require 'headdesk/check'
 
 module Headdesk
   #
@@ -32,19 +33,17 @@ module Headdesk
     def analize
       puts @sdk_info.inspect
 
-      # If targetSdkVersion >= 26 check for 'setChannelId' in
-      #    android/support/v4/app/NotificationCompat$Builder
-      # it will only be present if the v4 support lib is 26.1+
-      if @sdk_info['targetSdkVersion'].to_i > 25
-        notification_compat_builder = find_class('android/support/v4/app/NotificationCompat$Builder')
-        notification_compat_builder.method?('setChannelId')
+      Headdesk::Check.for_apk.each do |check|
+        puts check.call_on(self).report
       end
 
       # Check all of the receivers and make sure they have backing classes
-      @android_manifest.xpath("//receiver").each do |receiver|
+      @android_manifest.xpath('//receiver').each do |receiver|
         cls = find_class(receiver.attributes['name'].to_s)
         puts "#{receiver.attributes['name']} -> #{cls.method?('onReceive')}"
       end
+
+      # TODO: Associated domains
     end
 
     def find_class(decl)
