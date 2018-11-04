@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'headdesk'
+require 'nokogiri'
+require 'open-uri'
+require 'yaml'
+
+
+html_doc = Nokogiri::HTML(open('https://developers.facebook.com/docs/android/change-log-4x'))
+
+facebook_sdk_versions = html_doc.xpath('//h2')
+                                .select { |h2| h2.attributes['id'].value =~ /^\d+_\d+_\d+$/ }
+                                .collect do |h2|
+  major, minor, patch, date = h2.text.match(/^(\d+)\.(\d+)\.?(\d+)? \- (.*)$/).captures
+  {
+    major: major.to_i || 0,
+    minor: minor.to_i || 0,
+    patch: patch.to_i || 0,
+    date: Date.parse(date)
+  }
+end
+
+File.write(Headdesk::FACEBOOK_SDK_VERSIONS_YAML, facebook_sdk_versions.to_yaml)
