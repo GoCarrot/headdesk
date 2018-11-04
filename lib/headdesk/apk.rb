@@ -11,7 +11,7 @@ module Headdesk
   # Representation of an APK file unpacked by apktool
   #
   class Apk
-    attr_accessor :yaml, :sdk_info
+    attr_accessor :yaml, :sdk_info, :android_manifest
     def initialize(path)
       @path = path
 
@@ -35,12 +35,6 @@ module Headdesk
 
       Headdesk::Check.for_apk.each do |check|
         puts check.call_on(self).report
-      end
-
-      # Check all of the receivers and make sure they have backing classes
-      @android_manifest.xpath('//receiver').each do |receiver|
-        cls = find_class(receiver.attributes['name'].to_s)
-        puts "#{receiver.attributes['name']} -> #{cls.method?('onReceive')}"
       end
 
       # TODO: Associated domains
