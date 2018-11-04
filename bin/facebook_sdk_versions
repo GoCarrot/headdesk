@@ -6,7 +6,6 @@ require 'nokogiri'
 require 'open-uri'
 require 'yaml'
 
-
 html_doc = Nokogiri::HTML(open('https://developers.facebook.com/docs/android/change-log-4x'))
 
 facebook_sdk_versions = html_doc.xpath('//h2')
