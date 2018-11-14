@@ -47,7 +47,10 @@ module Headdesk
     end
 
     def find_class(decl)
-      Class.new(File.join(@path, 'smali', "#{Class.path_for(decl)}.smali"))
+      file_name = File.join(@path, 'smali', "#{Class.path_for(decl)}.smali")
+      return nil unless File.exist? file_name
+
+      Class.new(file_name)
     end
   end
 end
