@@ -9,7 +9,7 @@ module Headdesk
   class FacebookSDK
     include Check::APK
 
-    describe 'Check the version of the Facebook SDK'
+    describe 'Facebook SDK version'
     def call
       describe 'APK contains com.facebook.FacebookSdk'
       facebook_sdk = @apk.find_class('com/facebook/FacebookSdk')

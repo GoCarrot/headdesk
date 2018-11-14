@@ -8,7 +8,7 @@ module Headdesk
   class Receiver
     include Check::APK
 
-    describe 'Ensure all <receiver> blocks in AndroidManifest.xml point to valid Java classes'
+    describe 'All <receiver> blocks in AndroidManifest.xml point to valid Java classes'
     def call
       @apk.android_manifest.xpath('//receiver').each do |receiver|
         describe "APK should contain class #{receiver.attributes['name']}"

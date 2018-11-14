@@ -7,7 +7,7 @@ module Headdesk
   class Support_v4
     include Check::APK
 
-    describe 'Check the version of support-v4'
+    describe 'support-v4 is 26.1+ if targetSdkVersion >= 26'
     def call
       describe 'targetSdkVersion >= 26'
       skip_check unless @apk.sdk_info['targetSdkVersion'].to_i >= 26
