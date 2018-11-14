@@ -4,6 +4,7 @@ require 'tmpdir'
 require 'thor'
 require 'headdesk'
 require 'colorize'
+require 'json'
 
 module Headdesk
   #
@@ -55,7 +56,8 @@ module Headdesk
     end
 
     desc 'analize [FILE]', 'Analize an APK or IPA'
-    method_option :path, type: :string, aliases: '-p'
+    method_option :path, type: :string
+    method_option :json, type: :boolean
     def analize(file = nil)
       # Make sure input file exsts, if specified
       unless file.nil? || File.exist?(file)
@@ -82,6 +84,9 @@ module Headdesk
       # Analize
       begin
         report = Headdesk::Analize.at(path)
+
+        STDOUT.puts report.to_json if options[:json]
+        return if options[:json]
 
         STDOUT.puts report[:file_name]
         STDOUT.puts report[:android_sdk]
