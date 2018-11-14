@@ -86,19 +86,23 @@ module Headdesk
         STDOUT.puts report[:file_name]
         STDOUT.puts report[:android_sdk]
         report[:checks].each do |check|
-          icon = lambda do
-            return '✔' if check[:status] == :success
-            return '✘' if check[:status] == :fail
+          icon = case check[:status]
+                 when :success
+                   '✔'
+                 when :fail
+                   '✘'
+                 else
+                   '⇣'
+          end
 
-            '⇣'
-          end.call
-
-          color = lambda do
-            return :green if check[:status] == :success
-            return :red if check[:status] == :fail
-
-            :light_blue
-          end.call
+          color = case check[:status]
+                  when :success
+                    :green
+                  when :fail
+                    :red
+                  else
+                    :light_blue
+          end
 
           STDOUT.puts "#{icon} #{check[:description]}".colorize(color)
           check[:steps].each do |step|
