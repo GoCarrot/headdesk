@@ -65,16 +65,34 @@ module Headdesk
       @last_desc
     end
 
-    def skip_check
-      @status = :skip
-      @report[:steps] << describe.to_s
+    def skip_check_if(passed)
+      @status = :skip if passed
+      @report[:steps] << {
+        description: describe.to_s,
+        status: @status
+      }
+      return unless passed
+
       throw :halt_check
     end
 
-    def fail_check
-      @status = :fail
-      @report[:steps] << describe.to_s
+    def skip_check_unless(passed)
+      skip_check_if(!passed)
+    end
+
+    def fail_check_if(passed)
+      @status = :fail if passed
+      @report[:steps] << {
+        description: describe.to_s,
+        status: @status
+      }
+      return unless passed
+
       throw :halt_check
+    end
+
+    def fail_check_unless(passed)
+      fail_check_if(!passed)
     end
 
     #

@@ -32,6 +32,9 @@ module Headdesk
 
     def analize
       report = {
+        apk: true,
+        ipa: false,
+        bundle_id: @android_manifest.xpath('//manifest').first.attributes['package'],
         file_name: @yaml['apkFileName'],
         android_sdk: @sdk_info,
         checks: []

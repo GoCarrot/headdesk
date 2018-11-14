@@ -11,10 +11,12 @@ module Headdesk
     describe 'All <receiver> blocks in AndroidManifest.xml point to valid Java classes'
     def call
       @apk.android_manifest.xpath('//receiver').each do |receiver|
-        describe "APK should contain class #{receiver.attributes['name']}"
+        describe "APK contains class #{receiver.attributes['name']}"
         klass = @apk.find_class(receiver.attributes['name'].to_s)
-        fail_check if klass.nil?
-        fail_check unless klass.method?('onReceive')
+        fail_check_if klass.nil?
+
+        describe "#{receiver.attributes['name']} has onReceive method"
+        fail_check_unless klass.method?('onReceive')
       end
     end
   end

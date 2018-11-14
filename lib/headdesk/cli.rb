@@ -88,30 +88,13 @@ module Headdesk
         STDOUT.puts report.to_json if options[:json]
         return if options[:json]
 
-        STDOUT.puts report[:file_name]
-        STDOUT.puts report[:android_sdk]
+        STDOUT.puts "Bundle Id: #{report[:bundle_id]}"
+        STDOUT.puts "minSdkVersion: #{report[:android_sdk]['minSdkVersion']}" if report[:apk]
+        STDOUT.puts "targetSdkVersion: #{report[:android_sdk]['targetSdkVersion']}" if report[:apk]
         report[:checks].each do |check|
-          icon = case check[:status]
-                 when :success
-                   '✔'
-                 when :fail
-                   '✘'
-                 else
-                   '⇣'
-                 end
-
-          color = case check[:status]
-                  when :success
-                    :green
-                  when :fail
-                    :red
-                  else
-                    :light_blue
-                  end
-
-          STDOUT.puts "#{icon} #{check[:description]}".colorize(color)
+          STDOUT.puts "#{Headdesk.icon_for_status(check[:status])} #{check[:description]}".colorize(Headdesk.color_for_status(check[:status]))
           check[:steps].each do |step|
-            STDOUT.puts "  ↳ #{step}".colorize(color)
+            STDOUT.puts "  ↳ #{Headdesk.icon_for_status(step[:status])} #{step[:description]}".colorize(Headdesk.color_for_status(step[:status]))
           end
         end
       rescue ArgumentError => e
