@@ -31,13 +31,19 @@ module Headdesk
     end
 
     def analize
-      puts @sdk_info.inspect
+      report = {
+        file_name: @yaml['apkFileName'],
+        android_sdk: @sdk_info,
+        checks: []
+      }
 
       Headdesk::Check.for_apk.each do |check|
-        puts check.call_on(self).report
+        c = check.call_on(self)
+        report[:checks] << c.report
       end
 
       # TODO: Associated domains
+      report
     end
 
     def find_class(decl)

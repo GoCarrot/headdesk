@@ -3,6 +3,7 @@
 require 'tmpdir'
 require 'thor'
 require 'headdesk'
+require 'colorize'
 
 module Headdesk
   #
@@ -80,7 +81,30 @@ module Headdesk
 
       # Analize
       begin
-        Headdesk::Analize.at(path)
+        report = Headdesk::Analize.at(path)
+
+        STDOUT.puts report[:file_name]
+        STDOUT.puts report[:android_sdk]
+        report[:checks].each do |check|
+          icon = lambda do
+            return '✔' if check[:status] == :success
+            return '✘' if check[:status] == :fail
+
+            '⇣'
+          end.call
+
+          color = lambda do
+            return :green if check[:status] == :success
+            return :red if check[:status] == :fail
+
+            :light_blue
+          end.call
+
+          STDOUT.puts "#{icon} #{check[:description]}".colorize(color)
+          check[:steps].each do |step|
+            STDOUT.puts "  ↳ #{step}".colorize(color)
+          end
+        end
       rescue ArgumentError => e
         STDERR.puts e.message
         CLI.command_help(Thor::Base.shell.new, 'analize')

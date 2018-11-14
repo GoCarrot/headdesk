@@ -5,7 +5,7 @@ module Headdesk
   # Check for a potential issue in an apk or ipa
   #
   module Check
-    attr_reader :report
+    attr_reader :report, :status
 
     def self.for_apk
       APK.all
@@ -28,7 +28,20 @@ module Headdesk
         catch(:halt_check) do
           check.call if check.respond_to?(:call)
         end
+        check.report[:status] = check.status
         check
+      end
+
+      def success?
+        @status == :success
+      end
+
+      def fail?
+        @status == :fail
+      end
+
+      def skip?
+        @status == :skip
       end
 
       def describe(desc = nil)
@@ -40,7 +53,11 @@ module Headdesk
     def initialize(bundle)
       @apk = bundle
       @ipa = bundle
-      @report = [self.class.describe]
+      @report = {
+        description: self.class.describe,
+        steps: []
+      }
+      @status = :success
     end
 
     def describe(desc = nil)
@@ -49,12 +66,14 @@ module Headdesk
     end
 
     def skip_check
-      @report << "Skipped because: #{describe}"
+      @status = :skip
+      @report[:steps] << "#{describe}"
       throw :halt_check
     end
 
     def fail_check
-      @report << "Failed because: #{describe}"
+      @status = :fail
+      @report[:steps] << "#{describe}"
       throw :halt_check
     end
 
