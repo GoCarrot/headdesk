@@ -93,7 +93,7 @@ module Headdesk
                    '✘'
                  else
                    '⇣'
-          end
+                 end
 
           color = case check[:status]
                   when :success
@@ -102,7 +102,7 @@ module Headdesk
                     :red
                   else
                     :light_blue
-          end
+                  end
 
           STDOUT.puts "#{icon} #{check[:description]}".colorize(color)
           check[:steps].each do |step|

@@ -67,13 +67,13 @@ module Headdesk
 
     def skip_check
       @status = :skip
-      @report[:steps] << "#{describe}"
+      @report[:steps] << describe.to_s
       throw :halt_check
     end
 
     def fail_check
       @status = :fail
-      @report[:steps] << "#{describe}"
+      @report[:steps] << describe.to_s
       throw :halt_check
     end
 
