@@ -49,6 +49,10 @@ module Headdesk
       report
     end
 
+    def targets_sdk(gt_eq)
+      sdk_info['targetSdkVersion'].to_i >= gt_eq
+    end
+
     def class?(decl)
       !find_class(decl).nil?
     end

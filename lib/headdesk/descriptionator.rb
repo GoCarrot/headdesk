@@ -8,6 +8,10 @@ module Headdesk
     def class?(decl)
       "APK contains class #{decl.tr('/', '.')}"
     end
+
+    def targets_sdk(gt_eq)
+      "APK targets API >= #{gt_eq}"
+    end
   end
 
   #
