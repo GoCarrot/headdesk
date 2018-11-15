@@ -49,6 +49,10 @@ module Headdesk
       report
     end
 
+    def class?(decl)
+      !find_class(decl).nil?
+    end
+
     def find_class(decl)
       file_name = File.join(@path, 'smali', "#{Class.path_for(decl)}.smali")
       return nil unless File.exist? file_name

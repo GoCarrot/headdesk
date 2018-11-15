@@ -11,15 +11,14 @@ module Headdesk
 
     describe 'Facebook SDK version'
     def call
-      describe 'APK contains com.facebook.FacebookSdk'
+      skip_check unless: -> { @apk.class?('com/facebook/FacebookSdk') }
       facebook_sdk = @apk.find_class('com/facebook/FacebookSdk')
-      skip_check_if facebook_sdk.nil?
 
       # TODO: Parse https://developers.facebook.com/docs/android/change-log-4x
       #       and fail if > 2 years old, warn if < 3 months remaining
       get_sdk_version = facebook_sdk.method('getSdkVersion')[0]
       describe 'com.facebook.FacebookSdk contains getSdkVersion method'
-      fail_check_if get_sdk_version.nil?
+      fail_check if: -> { get_sdk_version.nil? }
 
       facebook_sdks = YAML.load_file(Headdesk::FACEBOOK_SDK_VERSIONS_YAML)
       major, minor, patch = get_sdk_version.match(/const-string v0, "(\d+)\.(\d+)\.(\d+)"/).captures
@@ -31,10 +30,10 @@ module Headdesk
       end).first
 
       describe "Found Facebook SDK version #{major}.#{minor}.#{patch}"
-      fail_check_if sdk_in_use.nil?
+      fail_check if: -> { sdk_in_use.nil? }
 
       describe "Facebook SDK was released in the last 2 years (using #{major}.#{minor}.#{patch}, released #{sdk_in_use[:date]})"
-      fail_check_unless sdk_in_use[:date] < (Date.today - (365 * 2))
+      fail_check unless: -> { sdk_in_use[:date] < (Date.today - (365 * 2)) }
     end
   end
 end

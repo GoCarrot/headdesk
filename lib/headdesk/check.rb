@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'headdesk/descriptionator'
+
 module Headdesk
   #
   # Check for a potential issue in an apk or ipa
@@ -65,34 +67,47 @@ module Headdesk
       @last_desc
     end
 
-    def skip_check_if(passed)
-      @status = :skip if passed
+    def check_control_flow(assign_status, conditions)
+      pass = conditions.nil? || conditions.empty? || conditions[0]
+      pass |= !conditions[:unless].call if conditions[:unless].respond_to? :call
+      pass |= conditions[:if].call if conditions[:if].respond_to? :call
+
+      # TODO: greater_than, less_than, equals
+
+      # rubocop:disable RescueStandardError
+      # Try and get an auto-description
+      descriptionator = Headdesk::Descriptionator.new
+      description = begin
+                      if conditions[:unless].respond_to?(:call)
+                        desc = descriptionator.instance_exec(&conditions[:unless])
+                        desc.is_a?(String) ? desc : describe.to_s
+                      elsif conditions[:if].respond_to?(:call)
+                        desc = descriptionator.instance_exec(&conditions[:if])
+                        desc.is_a?(String) ? desc : describe.to_s
+                      else
+                        describe.to_s
+                      end
+                    rescue
+                      describe.to_s
+                    end
+      # rubocop:enable RescueStandardError
+
+      @status = assign_status if pass
       @report[:steps] << {
-        description: describe.to_s,
+        description: description,
         status: @status
       }
-      return unless passed
+      return unless pass
 
       throw :halt_check
     end
 
-    def skip_check_unless(passed)
-      skip_check_if(!passed)
+    def skip_check(conditions = {})
+      check_control_flow(:skip, conditions)
     end
 
-    def fail_check_if(passed)
-      @status = :fail if passed
-      @report[:steps] << {
-        description: describe.to_s,
-        status: @status
-      }
-      return unless passed
-
-      throw :halt_check
-    end
-
-    def fail_check_unless(passed)
-      fail_check_if(!passed)
+    def fail_check(conditions = {})
+      check_control_flow(:fail, conditions)
     end
 
     #
