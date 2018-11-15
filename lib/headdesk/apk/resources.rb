@@ -41,6 +41,12 @@ module Headdesk
               @resources[elem.name] ||= {}
               @resources[elem.name.to_s][elem.attributes['name'].to_s] = elem.text
             end
+
+            item_elements = %i[drawable]
+            xml.xpath("//item[#{item_elements.map { |e| "contains(@type, '#{e}')" }.join('or')}]").each do |elem|
+              @resources[elem.attributes['type'].to_s] ||= {}
+              @resources[elem.attributes['type'].to_s][elem.attributes['name'].to_s] = elem.text
+            end
           end
         end
 
