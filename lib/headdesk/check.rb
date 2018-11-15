@@ -90,12 +90,13 @@ module Headdesk
 
       # rubocop:disable RescueStandardError
       # Try and get an auto-description
-      descriptionator = Headdesk::Descriptionator.new
       description = begin
                       if conditions[:unless].respond_to?(:call)
+                        descriptionator = Headdesk::Descriptionator.new(:unless)
                         desc = descriptionator.instance_exec(&conditions[:unless])
                         desc.is_a?(String) ? desc : describe.to_s
                       elsif conditions[:if].respond_to?(:call)
+                        descriptionator = Headdesk::Descriptionator.new(:if)
                         desc = descriptionator.instance_exec(&conditions[:if])
                         desc.is_a?(String) ? desc : describe.to_s
                       else
