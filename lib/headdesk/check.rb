@@ -68,9 +68,23 @@ module Headdesk
     end
 
     def check_control_flow(assign_status, conditions)
-      pass = conditions.nil? || conditions.empty? || conditions[0]
-      pass |= !conditions[:unless].call if conditions[:unless].respond_to? :call
-      pass |= conditions[:if].call if conditions[:if].respond_to? :call
+      pass = conditions.nil? || conditions.empty?
+
+      if conditions[:unless].respond_to? :call
+        pass |= !conditions[:unless].call
+      elsif %w[true false].include? conditions[:unless].to_s
+        pass = !conditions[:unless]
+      elsif conditions.include? :unless
+        raise ArgumentError, 'fail_check and skip_check only accept true, false, or Proc arguments'
+      end
+
+      if conditions[:if].respond_to? :call
+        pass |= conditions[:if].call
+      elsif %w[true false].include? conditions[:if].to_s
+        pass = conditions[:if]
+      elsif conditions.include? :if
+        raise ArgumentError, 'fail_check and skip_check only accept true, false, or Proc arguments'
+      end
 
       # TODO: greater_than, less_than, equals
 
