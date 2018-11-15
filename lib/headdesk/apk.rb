@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'yaml'
 
 require 'headdesk/apk/class'
+require 'headdesk/apk/resources'
 require 'headdesk/check'
 
 module Headdesk
@@ -11,7 +12,7 @@ module Headdesk
   # Representation of an APK file unpacked by apktool
   #
   class Apk
-    attr_accessor :yaml, :sdk_info, :android_manifest
+    attr_accessor :yaml, :sdk_info, :android_manifest, :resources
     def initialize(path)
       @path = path
 
@@ -24,6 +25,7 @@ module Headdesk
 
       @yaml = YAML.load_file(apktool_yml)
       @sdk_info = @yaml['sdkInfo']
+      @resources = Resources.new(@path)
 
       @android_manifest = File.open(android_manifest_xml) do |f|
         Nokogiri::XML(f)
