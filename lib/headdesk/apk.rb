@@ -55,6 +55,10 @@ module Headdesk
       sdk_info['targetSdkVersion'].to_i >= gt_eq
     end
 
+    def min_sdk(gt_eq)
+      sdk_info['minSdkVersion'].to_i >= gt_eq
+    end
+
     def class?(decl)
       !find_class(decl).nil?
     end
