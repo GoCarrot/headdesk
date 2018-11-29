@@ -16,6 +16,7 @@ facebook_sdk_versions = html_doc.xpath('//h2')
     major: major.to_i || 0,
     minor: minor.to_i || 0,
     patch: patch.to_i || 0,
+    version: "#{major.to_i || 0}.#{minor.to_i || 0}.#{patch.to_i || 0}",
     date: Date.parse(date)
   }
 end

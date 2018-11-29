@@ -2,224 +2,280 @@
 - :major: 4
   :minor: 38
   :patch: 1
+  :version: 4.38.1
   :date: 2018-11-01
 - :major: 4
   :minor: 38
   :patch: 0
+  :version: 4.38.0
   :date: 2018-10-23
 - :major: 4
   :minor: 37
   :patch: 0
+  :version: 4.37.0
   :date: 2018-09-27
 - :major: 4
   :minor: 36
   :patch: 1
+  :version: 4.36.1
   :date: 2018-09-17
 - :major: 4
   :minor: 36
   :patch: 0
+  :version: 4.36.0
   :date: 2018-08-29
 - :major: 4
   :minor: 35
   :patch: 0
+  :version: 4.35.0
   :date: 2018-07-26
 - :major: 4
   :minor: 34
   :patch: 0
+  :version: 4.34.0
   :date: 2018-06-18
 - :major: 4
   :minor: 33
   :patch: 0
+  :version: 4.33.0
   :date: 2018-05-01
 - :major: 4
   :minor: 32
   :patch: 0
+  :version: 4.32.0
   :date: 2018-04-11
 - :major: 4
   :minor: 31
   :patch: 0
+  :version: 4.31.0
   :date: 2018-02-28
 - :major: 4
   :minor: 30
   :patch: 0
+  :version: 4.30.0
   :date: 2018-01-24
 - :major: 4
   :minor: 29
   :patch: 0
+  :version: 4.29.0
   :date: 2017-12-05
 - :major: 4
   :minor: 28
   :patch: 0
+  :version: 4.28.0
   :date: 2017-11-07
 - :major: 4
   :minor: 27
   :patch: 0
+  :version: 4.27.0
   :date: 2017-09-26
 - :major: 4
   :minor: 26
   :patch: 0
+  :version: 4.26.0
   :date: 2017-08-24
 - :major: 4
   :minor: 25
   :patch: 0
+  :version: 4.25.0
   :date: 2017-07-26
 - :major: 4
   :minor: 24
   :patch: 0
+  :version: 4.24.0
   :date: 2017-06-26
 - :major: 4
   :minor: 23
   :patch: 0
+  :version: 4.23.0
   :date: 2017-05-25
 - :major: 4
   :minor: 22
   :patch: 1
+  :version: 4.22.1
   :date: 2017-05-11
 - :major: 4
   :minor: 22
   :patch: 0
+  :version: 4.22.0
   :date: 2017-04-18
 - :major: 4
   :minor: 21
   :patch: 1
+  :version: 4.21.1
   :date: 2017-04-06
 - :major: 4
   :minor: 21
   :patch: 0
+  :version: 4.21.0
   :date: 2017-04-04
 - :major: 4
   :minor: 20
   :patch: 0
+  :version: 4.20.0
   :date: 2017-03-01
 - :major: 4
   :minor: 19
   :patch: 0
+  :version: 4.19.0
   :date: 2017-01-25
 - :major: 4
   :minor: 18
   :patch: 0
+  :version: 4.18.0
   :date: 2016-11-30
 - :major: 4
   :minor: 17
   :patch: 0
+  :version: 4.17.0
   :date: 2016-10-26
 - :major: 4
   :minor: 16
   :patch: 1
+  :version: 4.16.1
   :date: 2016-10-07
 - :major: 4
   :minor: 16
   :patch: 0
+  :version: 4.16.0
   :date: 2016-09-27
 - :major: 4
   :minor: 15
   :patch: 0
+  :version: 4.15.0
   :date: 2016-08-23
 - :major: 4
   :minor: 14
   :patch: 1
+  :version: 4.14.1
   :date: 2016-08-04
 - :major: 4
   :minor: 14
   :patch: 0
+  :version: 4.14.0
   :date: 2016-07-13
 - :major: 4
   :minor: 13
   :patch: 2
+  :version: 4.13.2
   :date: 2016-07-01
 - :major: 4
   :minor: 13
   :patch: 1
+  :version: 4.13.1
   :date: 2016-06-17
 - :major: 4
   :minor: 13
   :patch: 0
+  :version: 4.13.0
   :date: 2016-06-15
 - :major: 4
   :minor: 12
   :patch: 1
+  :version: 4.12.1
   :date: 2016-05-26
 - :major: 4
   :minor: 12
   :patch: 0
+  :version: 4.12.0
   :date: 2016-05-20
 - :major: 4
   :minor: 11
   :patch: 0
+  :version: 4.11.0
   :date: 2016-04-12
 - :major: 4
   :minor: 10
   :patch: 1
+  :version: 4.10.1
   :date: 2016-03-18
 - :major: 4
   :minor: 10
   :patch: 0
+  :version: 4.10.0
   :date: 2016-02-10
 - :major: 4
   :minor: 9
   :patch: 0
+  :version: 4.9.0
   :date: 2016-01-13
 - :major: 4
   :minor: 8
   :patch: 2
+  :version: 4.8.2
   :date: 2015-11-23
 - :major: 4
   :minor: 8
   :patch: 1
+  :version: 4.8.1
   :date: 2015-11-11
 - :major: 4
   :minor: 8
   :patch: 0
+  :version: 4.8.0
   :date: 2015-11-11
 - :major: 4
   :minor: 7
   :patch: 0
+  :version: 4.7.0
   :date: 2015-10-07
 - :major: 4
   :minor: 6
   :patch: 0
+  :version: 4.6.0
   :date: 2015-09-10
 - :major: 4
   :minor: 5
   :patch: 1
+  :version: 4.5.1
   :date: 2015-08-13
 - :major: 4
   :minor: 5
   :patch: 0
+  :version: 4.5.0
   :date: 2015-08-10
 - :major: 4
   :minor: 4
   :patch: 1
+  :version: 4.4.1
   :date: 2015-07-13
 - :major: 4
   :minor: 4
   :patch: 0
+  :version: 4.4.0
   :date: 2015-07-08
 - :major: 4
   :minor: 3
   :patch: 0
+  :version: 4.3.0
   :date: 2015-06-25
 - :major: 4
   :minor: 2
   :patch: 0
+  :version: 4.2.0
   :date: 2015-05-28
 - :major: 4
   :minor: 1
   :patch: 2
+  :version: 4.1.2
   :date: 2015-05-14
 - :major: 4
   :minor: 1
   :patch: 1
+  :version: 4.1.1
   :date: 2015-05-06
 - :major: 4
   :minor: 1
   :patch: 0
+  :version: 4.1.0
   :date: 2015-04-30
 - :major: 4
   :minor: 0
   :patch: 1
+  :version: 4.0.1
   :date: 2015-04-02
 - :major: 4
   :minor: 0
   :patch: 0
+  :version: 4.0.0
   :date: 2015-03-25

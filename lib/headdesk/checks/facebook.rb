@@ -21,19 +21,17 @@ module Headdesk
       fail_check if: -> { get_sdk_version.nil? }
 
       facebook_sdks = YAML.load_file(Headdesk::FACEBOOK_SDK_VERSIONS_YAML)
-      major, minor, patch = get_sdk_version.match(/const-string v0, "(\d+)\.(\d+)\.(\d+)"/).captures
+      major, minor, patch = get_sdk_version.match(/const-string v0, "(\d+)\.(\d+)\.(\d+)"/).captures.map(&:to_i)
 
       sdk_in_use = (facebook_sdks.select do |sdk|
-        sdk['major'] == major.to_i || 0 &&
-        sdk['minor'] == minor.to_i || 0 &&
-        sdk['patch'] == patch.to_i || 0
+        sdk[:major] == major && sdk[:minor] == minor && sdk[:patch] == patch
       end).first
 
-      describe "Found Facebook SDK version #{major}.#{minor}.#{patch}"
+      describe "Found Facebook SDK version #{sdk_in_use[:version]}"
       fail_check if: -> { sdk_in_use.nil? }
 
-      describe "Facebook SDK was released in the last 2 years (using #{major}.#{minor}.#{patch}, released #{sdk_in_use[:date]})"
-      fail_check unless: -> { sdk_in_use[:date] < (Date.today - (365 * 2)) }
+      describe "Facebook SDK was released in the last 2 years (using #{sdk_in_use[:version]}, released #{sdk_in_use[:date]})"
+      fail_check if: -> { sdk_in_use[:date] < (Date.today - (365 * 2)) }
     end
   end
 end
