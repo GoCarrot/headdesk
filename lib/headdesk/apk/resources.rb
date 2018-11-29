@@ -38,14 +38,27 @@ module Headdesk
             named_elements = %i[string integer color bool]
 
             xml.xpath("//#{named_elements.join('|//')}").each do |elem|
-              @resources[elem.name] ||= {}
-              @resources[elem.name.to_s][elem.attributes['name'].to_s] = elem.text
+              type = elem.name.to_s
+              name = elem.attributes['name'].to_s
+
+              @resources[type] ||= {}
+              @resources[type][name] = case type
+                                       when 'bool'
+                                         elem.text == true.to_s
+                                       when 'integer'
+                                         elem.text.to_i
+                                       else
+                                         elem.text
+                                       end
             end
 
             item_elements = %i[drawable]
             xml.xpath("//item[#{item_elements.map { |e| "contains(@type, '#{e}')" }.join('or')}]").each do |elem|
-              @resources[elem.attributes['type'].to_s] ||= {}
-              @resources[elem.attributes['type'].to_s][elem.attributes['name'].to_s] = elem.text
+              type = elem.attributes['type'].to_s
+              name = elem.attributes['name'].to_s
+
+              @resources[type] ||= {}
+              @resources[type][name] = elem.text
             end
           end
         end
