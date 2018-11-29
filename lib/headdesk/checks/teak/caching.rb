@@ -13,8 +13,10 @@ module Headdesk
         skip_check unless: -> { @apk.class?('io.teak.sdk.Teak') }
 
         describe "APK enables caching of Teak notification content (via 'io_teak_enable_caching')"
-        fail_check unless: @apk.resources.values(v: 21)
-                           .bool.io_teak_enable_caching == true # TODO: Make bool return a bool
+        fail_check unless: @apk.resources
+                               .values(v: 21)
+                               .bool
+                               .io_teak_enable_caching
       end
     end
   end
