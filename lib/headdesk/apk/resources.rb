@@ -35,7 +35,7 @@ module Headdesk
               Nokogiri::XML(f)
             end
 
-            named_elements = %i[string integer color]
+            named_elements = %i[string integer color bool]
 
             xml.xpath("//#{named_elements.join('|//')}").each do |elem|
               @resources[elem.name] ||= {}
