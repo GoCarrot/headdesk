@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'headdesk/apk/field'
+require 'headdesk/apk/method'
+
 module Headdesk
   class Apk
     #
@@ -21,8 +24,22 @@ module Headdesk
         !method(name).nil?
       end
 
-      def method(method_name)
-        /(^\.method .* #{method_name}.*$[\s\S]*?\.end method)/.match(@smali)
+      def method(name)
+        matchdata = /(^\.method .* #{name}.*$[\s\S]*?\.end method)/.match(@smali)
+        return nil if matchdata.nil?
+
+        Method.new(matchdata)
+      end
+
+      def field?(name)
+        !field(name).nil?
+      end
+
+      def field(name)
+        matchdata = /^\.field .* #{name}.* = "(.*)"$/.match(@smali)
+        return nil if matchdata.nil?
+
+        Field.new(matchdata)
       end
     end
   end

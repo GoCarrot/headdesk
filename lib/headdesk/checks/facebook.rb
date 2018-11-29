@@ -16,7 +16,7 @@ module Headdesk
 
       # TODO: Parse https://developers.facebook.com/docs/android/change-log-4x
       #       and fail if > 2 years old, warn if < 3 months remaining
-      get_sdk_version = facebook_sdk.method('getSdkVersion')[0]
+      get_sdk_version = facebook_sdk.method('getSdkVersion').code
       describe 'com.facebook.FacebookSdk contains getSdkVersion method'
       fail_check if: -> { get_sdk_version.nil? }
 
