@@ -57,7 +57,8 @@ module Headdesk
       @ipa = bundle
       @report = {
         description: self.class.describe,
-        steps: []
+        steps: [],
+        export: {}
       }
       @status = :success
     end
@@ -123,6 +124,10 @@ module Headdesk
 
     def fail_check(conditions = {})
       check_control_flow(:fail, conditions)
+    end
+
+    def export(merge = {})
+      @report[:export].merge! merge
     end
 
     #

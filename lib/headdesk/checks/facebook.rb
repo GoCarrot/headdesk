@@ -30,6 +30,8 @@ module Headdesk
       describe "Found Facebook SDK version #{sdk_in_use[:version]}"
       fail_check if: -> { sdk_in_use.nil? }
 
+      export facebook_sdk: sdk_in_use
+
       describe "Facebook SDK was released in the last 2 years (using #{sdk_in_use[:version]}, released #{sdk_in_use[:date]})"
       fail_check if: -> { sdk_in_use[:date] < (Date.today - (365 * 2)) }
     end

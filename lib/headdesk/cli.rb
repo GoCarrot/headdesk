@@ -96,6 +96,7 @@ module Headdesk
           check[:steps].each do |step|
             STDOUT.puts "  ↳ #{Headdesk.icon_for_status(step[:status])} #{step[:description]}".colorize(Headdesk.color_for_status(step[:status]))
           end
+          STDOUT.puts "  💾 #{check[:export].to_json}" unless check[:export].empty?
         end
       rescue ArgumentError => e
         STDERR.puts e.message
