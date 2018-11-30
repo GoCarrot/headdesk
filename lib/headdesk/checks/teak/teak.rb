@@ -59,9 +59,6 @@ module Headdesk
         fail_check if: gcm_sender_id.nil?
         export gcm_sender_id: gcm_sender_id
 
-        describe 'Teak SDK version is greater than 2.0.0'
-        skip_check if: major < 2
-
         # Firebase App Id
         io_teak_firebase_app_id = @apk.resources
                                       .values
@@ -77,7 +74,7 @@ module Headdesk
 
         firebase_app_id = google_app_id || io_teak_firebase_app_id
         describe "Either 'io_teak_firebase_app_id' or 'google_app_id' configured"
-        fail_check if: firebase_app_id.nil?
+        fail_check if: firebase_app_id.nil?, skip_if: major < 2
         export gcm_sender_id: gcm_sender_id
       end
     end

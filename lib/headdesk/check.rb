@@ -76,7 +76,11 @@ module Headdesk
       pass = condition?(conditions, :if) if conditions.key? :if
       pass = !condition?(conditions, :unless) if conditions.key? :unless
 
-      # skip = control_flow_thing(conditions, :skip_if)
+      skip = false
+      raise ArgumentError, 'Do not specify both skip_if: and skip_unless:' if
+        conditions.key?(:skip_if) && conditions.key?(:skip_unless)
+      skip = condition?(conditions, :skip_if) if conditions.key? :skip_if
+      skip = !condition?(conditions, :skip_unless) if conditions.key? :skip_unless
 
       # TODO: greater_than, less_than, equals
 
@@ -99,10 +103,10 @@ module Headdesk
                     end
       # rubocop:enable RescueStandardError
 
-      @status = status_to_assign if pass
+      @status = status_to_assign if pass && !skip
       @report[:steps] << {
         description: description,
-        status: @status
+        status: skip ? :skip : @status
       }
       return unless pass
 
