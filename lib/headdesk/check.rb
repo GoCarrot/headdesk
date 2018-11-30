@@ -7,7 +7,7 @@ module Headdesk
   # Check for a potential issue in an apk or ipa
   #
   module Check
-    attr_reader :report, :status
+    attr_reader :report, :status, :apk, :ipa
 
     def self.for_apk
       APK.all
@@ -27,23 +27,10 @@ module Headdesk
     module ClassMethods
       def call_on(bundle)
         check = new(bundle)
-        catch(:halt_check) do
-          check.call if check.respond_to?(:call)
-        end
-        check.report[:status] = check.status
-        check
-      end
+        return check unless check.respond_to?(:call)
 
-      def success?
-        @status == :success
-      end
-
-      def fail?
-        @status == :fail
-      end
-
-      def skip?
-        @status == :skip
+        check.report[:status] = :skip unless check.preconditions?
+        check.process
       end
 
       def describe(desc = nil)
@@ -79,6 +66,7 @@ module Headdesk
       skip = false
       raise ArgumentError, 'Do not specify both skip_if: and skip_unless:' if
         conditions.key?(:skip_if) && conditions.key?(:skip_unless)
+
       skip = condition?(conditions, :skip_if) if conditions.key? :skip_if
       skip = !condition?(conditions, :skip_unless) if conditions.key? :skip_unless
 
@@ -137,6 +125,30 @@ module Headdesk
     def export(merge = {})
       @report[:export].merge! merge
     end
+
+    def preconditions?
+      true
+    end
+
+    def skip?
+      @status == :skip
+    end
+
+    def process
+      return self if skip?
+
+      before
+      catch(:halt_check) do
+        call
+      end
+      after
+      report[:status] = @status
+      self
+    end
+
+    def before; end
+
+    def after; end
 
     #
     # Check applies to APKs

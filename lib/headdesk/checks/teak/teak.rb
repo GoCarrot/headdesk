@@ -6,21 +6,10 @@ module Headdesk
     # Check to make sure that an APK, which uses Teak, has caching enabled.
     #
     class Configuration
-      include Check::APK
+      include Teak::APK
 
       describe 'Check Teak configuration'
       def call
-        skip_check unless: -> { @apk.class?('io.teak.sdk.Teak') }
-
-        major, minor, revision = @apk.find_class('io.teak.sdk.Teak')
-                                     .field('SDKVersion')
-                                     .value
-                                     .to_version
-        export version: "#{major}.#{minor}.#{revision}",
-               major: major,
-               minor: minor,
-               revision: revision
-
         # App Id
         teak_app_id = @apk.resources
                           .values
@@ -74,7 +63,7 @@ module Headdesk
 
         firebase_app_id = google_app_id || io_teak_firebase_app_id
         describe "Either 'io_teak_firebase_app_id' or 'google_app_id' configured"
-        fail_check if: firebase_app_id.nil?, skip_if: major < 2
+        fail_check if: firebase_app_id.nil?, skip_if: teak_sdk.major < 2
         export gcm_sender_id: gcm_sender_id
       end
     end
