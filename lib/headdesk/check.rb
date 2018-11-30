@@ -110,12 +110,13 @@ module Headdesk
     end
 
     def condition?(conditions, key)
-      if !conditions.key?(key) || conditions[key].nil?
+      condition = conditions.fetch(key, nil)
+      if condition.nil?
         false
-      elsif conditions[key].respond_to? :call
-        conditions[key].call || false
-      elsif %w[true false].include?(conditions[key].to_s)
-        conditions[key].to_s == 'true'
+      elsif condition.respond_to? :call
+        condition.call
+      elsif %w[true false].include?(condition.to_s)
+        condition.to_s == 'true'
       else
         raise ArgumentError, 'fail_check and skip_check only accept true, false, nil, or Proc arguments'
       end
