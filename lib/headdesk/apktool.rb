@@ -29,8 +29,8 @@ module Headdesk
     # Unpacks an APK to the specified path
     #
     def self.unpack_to(path, destination)
-      throw ArgumentError.new("File not found: #{path}") unless File.exist?(path)
-      throw ArgumentError.new("Path not found: #{destination}") unless Dir.exist?(destination)
+      throw CliError.new("File not found: #{path}") unless File.exist?(path)
+      throw CliError.new("Path not found: #{destination}") unless Dir.exist?(destination)
 
       args = ['d', '--force', '--output', destination]
 

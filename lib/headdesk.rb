@@ -37,4 +37,7 @@ module Headdesk
       :cyan
     end
   end
+
+  class CliError < StandardError
+  end
 end
