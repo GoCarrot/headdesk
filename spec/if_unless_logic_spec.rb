@@ -9,25 +9,25 @@ describe Headdesk::Check do
   end
 
   describe 'condition?' do
-    it 'is true when key resolves to true' do
-      expect(@check.condition?({ key: true }, :key)).to be true
-      expect(@check.condition?({ key: 'true' }, :key)).to be true
-      expect(@check.condition?({ key: -> { true } }, :key)).to be true
+    it 'is truthy when key resolves to true' do
+      expect(@check.condition?({ key: true }, :key)).to be_truthy
+      expect(@check.condition?({ key: 'true' }, :key)).to be_truthy
+      expect(@check.condition?({ key: -> { true } }, :key)).to be_truthy
     end
 
-    it 'is false when key resolves to false' do
-      expect(@check.condition?({ key: false }, :key)).to be false
-      expect(@check.condition?({ key: 'false' }, :key)).to be false
-      expect(@check.condition?({ key: -> { false } }, :key)).to be false
+    it 'is falsy when key resolves to false' do
+      expect(@check.condition?({ key: false }, :key)).to be_falsy
+      expect(@check.condition?({ key: 'false' }, :key)).to be_falsy
+      expect(@check.condition?({ key: -> { false } }, :key)).to be_falsy
     end
 
-    it 'is false when key resolves to nil' do
-      expect(@check.condition?({ key: nil }, :key)).to be false
-      expect(@check.condition?({ key: -> { nil } }, :key)).to be false
+    it 'is falsy when key resolves to nil' do
+      expect(@check.condition?({ key: nil }, :key)).to be_falsy
+      expect(@check.condition?({ key: -> { nil } }, :key)).to be_falsy
     end
 
-    it 'is false when there is no key in a :key test' do
-      expect(@check.condition?({}, :key)).to be false
+    it 'is falsy when there is no key in a :key test' do
+      expect(@check.condition?({}, :key)).to be_falsy
     end
 
     it 'raises ArgumentError when key is not a boolean, nil, or a proc' do
