@@ -3,7 +3,7 @@
 require 'tmpdir'
 require 'thor'
 require 'headdesk'
-require 'colorize'
+require 'awesome_print'
 require 'json'
 
 module Headdesk
@@ -45,12 +45,13 @@ module Headdesk
 
         # Analize if requested
         Headdesk::Analize.at(output_path) if options[:analize]
-      rescue ArgumentError => e
+      rescue CliError => e
         STDERR.puts e.message
         CLI.command_help(Thor::Base.shell.new, 'unpack')
         return 1
       rescue StandardError => e
-        STDERR.puts "apktool error: #{e.message}"
+        STDERR.puts e.message.red
+        STDERR.puts e.backtrace.ai
         return 1
       end
     end
@@ -92,18 +93,19 @@ module Headdesk
         STDOUT.puts "minSdkVersion: #{report[:android_sdk]['minSdkVersion']}" if report[:apk]
         STDOUT.puts "targetSdkVersion: #{report[:android_sdk]['targetSdkVersion']}" if report[:apk]
         report[:checks].each do |check|
-          STDOUT.puts "#{Headdesk.icon_for_status(check[:status])} #{check[:description]}".colorize(Headdesk.color_for_status(check[:status]))
+          STDOUT.puts "#{Headdesk.icon_for_status(check[:status])} #{check[:description]}".public_send(Headdesk.color_for_status(check[:status]))
           check[:steps].each do |step|
-            STDOUT.puts "  ↳ #{Headdesk.icon_for_status(step[:status])} #{step[:description]}".colorize(Headdesk.color_for_status(step[:status]))
+            STDOUT.puts "  ↳ #{Headdesk.icon_for_status(step[:status])} #{step[:description]}".public_send(Headdesk.color_for_status(step[:status]))
           end
-          STDOUT.puts "  💾 #{check[:export].to_json}" unless check[:export].empty?
+          STDOUT.puts "  💾 #{check[:export].to_json}".pale unless check[:export].empty?
         end
-      rescue ArgumentError => e
+      rescue CliError => e
         STDERR.puts e.message
         CLI.command_help(Thor::Base.shell.new, 'analize')
         return 1
       rescue StandardError => e
-        STDERR.puts e.message
+        STDERR.puts e.message.red
+        STDERR.puts e.backtrace.ai
         return 1
       end
     ensure

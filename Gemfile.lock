@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     headdesk (0.1.0)
-      colorize
+      awesome_print
       nokogiri
       thor
 
@@ -10,7 +10,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
-    colorize (0.8.1)
+    awesome_print (1.8.0)
     jaro_winkler (1.5.1)
     mini_portile2 (2.3.0)
     nokogiri (1.8.5)
