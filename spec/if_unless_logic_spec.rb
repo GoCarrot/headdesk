@@ -8,45 +8,75 @@ describe Headdesk::Check do
     @check.send(:initialize, nil)
   end
 
-  # it 'does basic logic correctly' do
-  #   check = Object.new.extend(Headdesk::Check)
-
-  #   expect(check.control_flow_thing({ if: nil }, :if)).to be false
-  #   expect(check.control_flow_thing({ if: false }, :if)).to be false
-  #   expect(check.control_flow_thing({ if: true }, :if)).to be true
-
-  #   expect(check.control_flow_thing({ unless: nil }, :unless)).to be true
-  #   expect(check.control_flow_thing({ unless: false }, :unless)).to be true
-  #   expect(check.control_flow_thing({ unless: true }, :unless)).to be false
-  # end
-
-  describe 'fail_check' do
-    it 'raises :halt_check when if: resolves to true' do
-      expect { @check.fail_check(if: true) }.to throw_symbol(:halt_check)
-      expect { @check.fail_check(if: -> { true }) }.to throw_symbol(:halt_check)
+  describe 'condition?' do
+    it 'is true when key resolves to true' do
+      expect(@check.condition?({ key: true }, :key)).to be true
+      expect(@check.condition?({ key: 'true' }, :key)).to be true
+      expect(@check.condition?({ key: -> { true } }, :key)).to be true
     end
 
-    it 'does not raise :halt_check when unless: resolves to true' do
-      expect { @check.fail_check(unless: true) }.not_to throw_symbol(:halt_check)
-      expect { @check.fail_check(unless: -> { true }) }.not_to throw_symbol(:halt_check)
+    it 'is false when key resolves to false' do
+      expect(@check.condition?({ key: false }, :key)).to be false
+      expect(@check.condition?({ key: 'false' }, :key)).to be false
+      expect(@check.condition?({ key: -> { false } }, :key)).to be false
+    end
+
+    it 'is false when key resolves to nil' do
+      expect(@check.condition?({ key: nil }, :key)).to be false
+      expect(@check.condition?({ key: -> { nil } }, :key)).to be false
+    end
+
+    it 'is false when there is no key in a :key test' do
+      expect(@check.condition?({}, :key)).to be false
+    end
+
+    it 'raises ArgumentError when key is not a boolean, nil, or a proc' do
+      expect { @check.condition?({ key: 'string' }, :key) }.to raise_error(ArgumentError)
+      expect { @check.condition?({ key: 42 }, :key) }.to raise_error(ArgumentError)
+      expect { @check.condition?({ key: [] }, :key) }.to raise_error(ArgumentError)
+      expect { @check.condition?({ key: {} }, :key) }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe 'check_control_flow' do
+    it 'raises ArgumentError if given both if: and unless:' do
+      expect { @check.check_control_flow(:test, if: true, unless: false) }.to raise_error(ArgumentError)
+    end
+
+    it 'raises :halt_check when if: resolves to true' do
+      expect { @check.check_control_flow(:test, if: true) }.to throw_symbol(:halt_check)
     end
 
     it 'does not raise :halt_check when if: resolves to false' do
-      expect { @check.fail_check(if: false) }.not_to throw_symbol(:halt_check)
-      expect { @check.fail_check(if: -> { false }) }.not_to throw_symbol(:halt_check)
-    end
-
-    it 'raises :halt_check when unless: resolves to false' do
-      expect { @check.fail_check(unless: false) }.to throw_symbol(:halt_check)
-      expect { @check.fail_check(unless: -> { false }) }.to throw_symbol(:halt_check)
+      expect { @check.check_control_flow(:test, if: false) }.not_to throw_symbol(:halt_check)
     end
 
     it 'does not raise :halt_check when if: is nil' do
-      expect { @check.fail_check(if: nil) }.not_to throw_symbol(:halt_check)
+      expect { @check.check_control_flow(:test, if: nil) }.not_to throw_symbol(:halt_check)
+    end
+
+    it 'does not raise :halt_check when unless: resolves to true' do
+      expect { @check.check_control_flow(:test, unless: true) }.not_to throw_symbol(:halt_check)
+    end
+
+    it 'raises :halt_check when unless: resolves to false' do
+      expect { @check.check_control_flow(:test, unless: false) }.to throw_symbol(:halt_check)
     end
 
     it 'raises :halt_check when unless: is nil' do
-      expect { @check.fail_check(unless: nil) }.to throw_symbol(:halt_check)
+      expect { @check.check_control_flow(:test, unless: nil) }.to throw_symbol(:halt_check)
+    end
+  end
+
+  describe 'fail_check' do
+    it 'raises :halt_check when given no arguments' do
+      expect { @check.fail_check }.to throw_symbol(:halt_check)
+    end
+  end
+
+  describe 'skip_check' do
+    it 'raises :halt_check when given no arguments' do
+      expect { @check.skip_check }.to throw_symbol(:halt_check)
     end
   end
 end

@@ -68,28 +68,15 @@ module Headdesk
       @last_desc
     end
 
-    def check_control_flow(assign_status, conditions)
+    def check_control_flow(status_to_assign, conditions = nil)
       pass = conditions.nil? || conditions.empty?
+      raise ArgumentError, 'Do not specify both if: and unless:' if
+        conditions.key?(:if) && conditions.key?(:unless)
 
-      if conditions.has_key?(:unless) && conditions[:unless].nil?
-        pass = true
-      elsif conditions[:unless].respond_to? :call
-        pass |= !conditions[:unless].call
-      elsif %w[true false].include? conditions[:unless].to_s
-        pass = !conditions[:unless]
-      elsif conditions.include? :unless
-        raise ArgumentError, 'fail_check and skip_check only accept true, false, or Proc arguments'
-      end
+      pass = condition?(conditions, :if) if conditions.key? :if
+      pass = !condition?(conditions, :unless) if conditions.key? :unless
 
-      if conditions.has_key?(:if) && conditions[:if].nil?
-        pass = false
-      elsif conditions[:if].respond_to? :call
-        pass |= conditions[:if].call
-      elsif %w[true false].include? conditions[:if].to_s
-        pass = conditions[:if]
-      elsif conditions.include? :if
-        raise ArgumentError, 'fail_check and skip_check only accept true, false, or Proc arguments'
-      end
+      # skip = control_flow_thing(conditions, :skip_if)
 
       # TODO: greater_than, less_than, equals
 
@@ -112,14 +99,28 @@ module Headdesk
                     end
       # rubocop:enable RescueStandardError
 
-      @status = assign_status if pass
+      @status = status_to_assign if pass
       @report[:steps] << {
         description: description,
-        status: @status
+        status: status_to_assign
       }
       return unless pass
 
       throw :halt_check
+    end
+
+    def condition?(conditions, key)
+      if conditions.key?(key) && conditions[key].nil?
+        false
+      elsif conditions[key].respond_to? :call
+        conditions[key].call || false
+      elsif %w[true false].include?(conditions[key].to_s)
+        conditions[key].to_s == 'true'
+      elsif conditions.key?(key)
+        raise ArgumentError, 'fail_check and skip_check only accept true, false, nil, or Proc arguments'
+      else
+        false
+      end
     end
 
     def skip_check(conditions = {})
