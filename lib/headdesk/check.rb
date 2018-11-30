@@ -102,7 +102,7 @@ module Headdesk
       @status = status_to_assign if pass
       @report[:steps] << {
         description: description,
-        status: status_to_assign
+        status: @status
       }
       return unless pass
 
