@@ -9,8 +9,6 @@ module Headdesk
 
     describe 'targetSdkVersion must be at least 26'
     def call
-      export targetSdkVersion: @apk.target_sdk_version
-
       fail_check unless: -> { @apk.targets_sdk 26 }
 
       klass_def = 'android/support/v4/app/NotificationCompat$Builder'
