@@ -12,14 +12,15 @@ module Headdesk
     def call
       receivers = []
       apk.android_manifest.xpath('//receiver').each do |receiver|
-        fail_check unless: -> { apk.class?(receiver.attributes['name'].to_s) }
-        @klass = apk.find_class(receiver.attributes['name'].to_s)
+        receiver_name = receiver.attributes['name'].to_s
+        fail_check unless: -> { apk.class?(receiver_name) }
+        @klass = apk.find_class(receiver_name)
 
-        describe "#{receiver.attributes['name']} has onReceive method"
+        describe "#{receiver_name} has onReceive method"
         fail_check unless: -> { @klass.method?('onReceive') }
 
         receivers << {
-          name: receiver.attributes['name'].to_s
+          name: receiver_name
         }
       end
       export receivers: receivers

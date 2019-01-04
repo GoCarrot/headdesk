@@ -20,6 +20,7 @@ module Headdesk
       # Collection of XML values for specific locale/api/etc
       #
       class XmlCollection
+        # :reek:DuplicateMethodCall { allow_calls: ['@resources', 'elem.attributes', 'elem.text'] }
         def initialize(path, type, modifiers = {})
           mods = [nil]
           if modifiers.key?(:v)
@@ -63,7 +64,7 @@ module Headdesk
           end
         end
 
-        def respond_to_missing?(method_name, include_private = false)
+        def respond_to_missing?(method_name, include_all)
           @resources.include?(method_name.to_s) || super
         end
 

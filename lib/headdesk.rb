@@ -38,6 +38,9 @@ module Headdesk
     end
   end
 
+  #
+  # Error in CLI input
+  #
   class CliError < StandardError
   end
 end
