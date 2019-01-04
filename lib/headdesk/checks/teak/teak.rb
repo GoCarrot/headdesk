@@ -9,6 +9,7 @@ module Headdesk
       include Teak::APK
 
       describe 'Check Teak configuration'
+      # :reek:UncommunicativeVariableName { accept: ['gcm_defaultSenderId'] }
       def call
         # App Id
         teak_app_id = apk.resources

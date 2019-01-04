@@ -9,6 +9,7 @@ module Headdesk
       include Teak::APK
 
       describe 'Check for API 21+ Teak icons'
+      # :reek:UncommunicativeVariableName { accept: ['icon_v21'] }
       def call
         skip_check if: -> { apk.min_sdk 21 }
 

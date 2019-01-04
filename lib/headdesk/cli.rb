@@ -45,13 +45,13 @@ module Headdesk
 
         # Analize if requested
         Headdesk::Analize.at(output_path) if options[:analize]
-      rescue CliError => e
-        STDERR.puts e.message
+      rescue CliError => err
+        STDERR.puts err.message
         CLI.command_help(Thor::Base.shell.new, 'unpack')
         return 1
-      rescue StandardError => e
-        STDERR.puts e.message.red
-        STDERR.puts e.backtrace.ai
+      rescue StandardError => err
+        STDERR.puts err.message.red
+        STDERR.puts err.backtrace.ai
         return 1
       end
     end
@@ -99,13 +99,13 @@ module Headdesk
           end
           STDOUT.puts "  💾 #{check[:export].to_json}".pale unless check[:export].empty?
         end
-      rescue CliError => e
-        STDERR.puts e.message
+      rescue CliError => err
+        STDERR.puts err.message
         CLI.command_help(Thor::Base.shell.new, 'analize')
         return 1
-      rescue StandardError => e
-        STDERR.puts e.message.red
-        STDERR.puts e.backtrace.ai
+      rescue StandardError => err
+        STDERR.puts err.message.red
+        STDERR.puts err.backtrace.ai
         return 1
       end
     ensure

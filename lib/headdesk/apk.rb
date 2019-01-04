@@ -27,8 +27,8 @@ module Headdesk
       @sdk_info = @yaml['sdkInfo']
       @resources = Resources.new(@path)
 
-      @android_manifest = File.open(android_manifest_xml) do |f|
-        Nokogiri::XML(f)
+      @android_manifest = File.open(android_manifest_xml) do |file|
+        Nokogiri::XML(file)
       end
     end
 
@@ -43,8 +43,8 @@ module Headdesk
       }
 
       Headdesk::Check.for_apk.each do |check|
-        c = check.call_on(self)
-        report[:checks] << c.report
+        check_run = check.call_on(self)
+        report[:checks] << check_run.report
       end
 
       # TODO: Associated domains

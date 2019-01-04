@@ -24,16 +24,16 @@ module Headdesk
         def initialize(path, type, modifiers = {})
           mods = [nil]
           if modifiers.key?(:v)
-            (1..modifiers[:v].to_i).each do |n|
-              mods << "-v#{n}"
+            (1..modifiers[:v].to_i).each do |api_version|
+              mods << "-v#{api_version}"
             end
           end
           glob = File.join(path, 'res', "#{type}{#{mods.join(',')}}", '*.xml')
 
           @resources = {}
           Dir.glob(glob).each do |file_name|
-            xml = File.open(file_name) do |f|
-              Nokogiri::XML(f)
+            xml = File.open(file_name) do |file|
+              Nokogiri::XML(file)
             end
 
             named_elements = %i[string integer color bool]
@@ -54,7 +54,7 @@ module Headdesk
             end
 
             item_elements = %i[drawable]
-            xml.xpath("//item[#{item_elements.map { |e| "contains(@type, '#{e}')" }.join('or')}]").each do |elem|
+            xml.xpath("//item[#{item_elements.map { |elem| "contains(@type, '#{elem}')" }.join('or')}]").each do |elem|
               type = elem.attributes['type'].to_s
               name = elem.attributes['name'].to_s
 
