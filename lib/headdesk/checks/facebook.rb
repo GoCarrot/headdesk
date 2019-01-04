@@ -18,7 +18,7 @@ module Headdesk
       #       and fail if > 2 years old, warn if < 3 months remaining
       get_sdk_version = facebook_sdk.method('getSdkVersion').code
       describe 'com.facebook.FacebookSdk contains getSdkVersion method'
-      fail_check if: -> { get_sdk_version.nil? }
+      fail_check if: -> { !get_sdk_version }
 
       facebook_sdks = YAML.load_file(Headdesk::FACEBOOK_SDK_VERSIONS_YAML)
       major, minor, patch = get_sdk_version.match(/const-string v0, "(\d+)\.(\d+)\.(\d+)"/).captures.map(&:to_i)
@@ -28,7 +28,7 @@ module Headdesk
       end).first
 
       describe "Found Facebook SDK version #{sdk_in_use[:version]}"
-      fail_check if: -> { sdk_in_use.nil? }
+      fail_check if: -> { !sdk_in_use }
 
       export facebook_sdk: sdk_in_use
 

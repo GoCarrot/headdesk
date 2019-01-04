@@ -68,7 +68,7 @@ module Headdesk
     end
 
     def class?(decl)
-      !find_class(decl).nil?
+      find_class(decl) != false
     end
 
     def find_class(decl)

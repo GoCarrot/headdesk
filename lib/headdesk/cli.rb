@@ -22,7 +22,7 @@ module Headdesk
       end
 
       # Make sure destination exists, if specified
-      unless destination.nil? || Dir.exist?(destination)
+      unless !destination || Dir.exist?(destination)
         STDERR.puts "Could not find destination path: #{destination}"
         CLI.command_help(Thor::Base.shell.new, 'unpack')
         return 1
@@ -32,7 +32,7 @@ module Headdesk
         stdout = nil
         output_path = destination
 
-        if destination.nil?
+        if !destination
           # Output to tempdir, then copy to cwd if no destination specified
           Dir.mktmpdir do |tmp_dir|
             output_path = tmp_dir
@@ -61,7 +61,7 @@ module Headdesk
     method_option :json, type: :boolean
     def analize(file = nil)
       # Make sure input file exsts, if specified
-      unless file.nil? || File.exist?(file)
+      unless !file || File.exist?(file)
         STDERR.puts "Could not find input file: #{file}"
         CLI.command_help(Thor::Base.shell.new, 'analize')
         return 1
@@ -70,7 +70,7 @@ module Headdesk
       # Unpack APK if needed
       path = options[:path]
       tmp_dir = nil
-      unless file.nil?
+      if file
         path = tmp_dir = Dir.mktmpdir
         Headdesk::ApkTool.unpack_to(file, tmp_dir)
       end
@@ -109,7 +109,7 @@ module Headdesk
         return 1
       end
     ensure
-      FileUtils.remove_entry(tmp_dir) unless tmp_dir.nil?
+      FileUtils.remove_entry(tmp_dir) if tmp_dir
     end
   end
 end

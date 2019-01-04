@@ -21,23 +21,23 @@ module Headdesk
       end
 
       def method?(name)
-        !method(name).nil?
+        method(name) != false
       end
 
       def method(name)
         matchdata = /(^\.method .* #{name}.*$[\s\S]*?\.end method)/.match(@smali)
-        return nil if matchdata.nil?
+        return nil unless matchdata
 
         Method.new(matchdata)
       end
 
       def field?(name)
-        !field(name).nil?
+        field(name) != false
       end
 
       def field(name)
         matchdata = /^\.field .* #{name}.* = "(.*)"$/.match(@smali)
-        return nil if matchdata.nil?
+        return nil unless matchdata
 
         Field.new(matchdata)
       end

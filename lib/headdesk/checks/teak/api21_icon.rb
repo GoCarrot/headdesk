@@ -13,8 +13,8 @@ module Headdesk
         skip_check if: -> { apk.min_sdk 21 }
 
         describe "APK contains a drawable for 'io_teak_small_notification_icon'"
-        fail_check if: apk.resources.values(v: 21)
-                          .drawable.io_teak_small_notification_icon.nil?
+        fail_check if: !apk.resources.values(v: 21)
+                           .drawable.io_teak_small_notification_icon
 
         icon = apk.resources
                   .values(v: 20)

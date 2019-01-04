@@ -34,7 +34,7 @@ module Headdesk
       end
 
       def describe(desc = nil)
-        @last_desc = desc unless desc.nil?
+        @last_desc = desc if desc
         @last_desc
       end
     end
@@ -51,12 +51,12 @@ module Headdesk
     end
 
     def describe(desc = nil)
-      @last_desc = desc unless desc.nil?
+      @last_desc = desc if desc
       @last_desc
     end
 
     def check_control_flow(status_to_assign, conditions = nil)
-      pass = conditions.nil? || conditions.empty?
+      pass = !conditions || conditions.empty?
       raise ArgumentError, 'Do not specify both if: and unless:' if
         conditions.key?(:if) && conditions.key?(:unless)
 
@@ -103,14 +103,14 @@ module Headdesk
 
     def condition?(conditions, key)
       condition = conditions.fetch(key, nil)
-      if condition.nil?
+      if !condition
         false
       elsif condition.respond_to? :call
         condition.call
       elsif %w[true false].include?(condition.to_s)
         condition.to_s == 'true'
       else
-        raise ArgumentError, 'fail_check and skip_check only accept true, false, nil, or Proc arguments'
+        raise ArgumentError, 'fail_check and skip_check only accept truthy, falsy, nil, or Proc arguments'
       end
     end
 
