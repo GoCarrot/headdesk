@@ -93,9 +93,9 @@ module Headdesk
         STDOUT.puts "minSdkVersion: #{report[:android_sdk]['minSdkVersion']}" if report[:apk]
         STDOUT.puts "targetSdkVersion: #{report[:android_sdk]['targetSdkVersion']}" if report[:apk]
         report[:checks].each do |check|
-          STDOUT.puts "#{Headdesk.icon_for_status(check[:status])} #{check[:description]}".public_send(Headdesk.color_for_status(check[:status]))
+          STDOUT.puts "#{Headdesk.icon_for_status[check[:status]]} #{check[:description]}".public_send(Headdesk.color_for_status[check[:status]])
           check[:steps].each do |step|
-            STDOUT.puts "  ↳ #{Headdesk.icon_for_status(step[:status])} #{step[:description]}".public_send(Headdesk.color_for_status(step[:status]))
+            STDOUT.puts "  ↳ #{Headdesk.icon_for_status[step[:status]]} #{step[:description]}".public_send(Headdesk.color_for_status[step[:status]])
           end
           STDOUT.puts "  💾 #{check[:export].to_json}".pale unless check[:export].empty?
         end

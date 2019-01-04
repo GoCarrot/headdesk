@@ -16,26 +16,21 @@ module Headdesk
                                                   'facebook_sdk_versions.yaml'
                                                 ))
 
-  def self.icon_for_status(status)
-    case status
-    when :success
-      '✔'
-    when :fail
-      '✘'
-    else
-      '⇣'
-    end
+
+  def self.icon_for_status
+    {
+      success: '✔',
+      fail: '✘',
+      skip: '⇣'
+    }
   end
 
-  def self.color_for_status(status)
-    case status
-    when :success
-      :green
-    when :fail
-      :red
-    else
-      :cyan
-    end
+  def self.color_for_status
+    {
+      success: :green,
+      fail: :red,
+      skip: :cyan
+    }
   end
 
   #
