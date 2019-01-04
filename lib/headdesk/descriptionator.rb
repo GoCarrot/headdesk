@@ -4,6 +4,7 @@ module Headdesk
   #
   # Descriptions for APK methods
   #
+  # :reek:RepeatedConditional
   class APKDescriber
     def initialize(mode)
       @unless = (mode == :unless)
