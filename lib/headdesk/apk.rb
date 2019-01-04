@@ -12,7 +12,7 @@ module Headdesk
   # Representation of an APK file unpacked by apktool
   #
   class Apk
-    attr_accessor :yaml, :sdk_info, :android_manifest, :resources
+    attr_reader :yaml, :sdk_info, :android_manifest, :resources
     def initialize(path)
       @path = path
 
