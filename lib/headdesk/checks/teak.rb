@@ -29,7 +29,7 @@ module Headdesk
       #
       module Utility
         def teak_sdk
-          return @teak_sdk unless @teak_sdk.nil?
+          return @teak_sdk if @teak_sdk
 
           major, minor, revision = apk.find_class('io.teak.sdk.Teak')
                                       .field('SDKVersion')
