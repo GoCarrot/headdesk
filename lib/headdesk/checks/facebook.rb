@@ -11,8 +11,8 @@ module Headdesk
 
     describe 'Facebook SDK version'
     def call
-      skip_check unless: -> { @apk.class?('com/facebook/FacebookSdk') }
-      facebook_sdk = @apk.find_class('com/facebook/FacebookSdk')
+      skip_check unless: -> { apk.class?('com/facebook/FacebookSdk') }
+      facebook_sdk = apk.find_class('com/facebook/FacebookSdk')
 
       # TODO: Parse https://developers.facebook.com/docs/android/change-log-4x
       #       and fail if > 2 years old, warn if < 3 months remaining

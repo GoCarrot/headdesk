@@ -26,6 +26,8 @@ module Headdesk
   # Turn parameters passed skip_check and fail_check into descriptions
   #
   class Descriptionator
+    attr_reader :apk
+
     def initialize(mode)
       @apk = APKDescriber.new(mode)
     end
