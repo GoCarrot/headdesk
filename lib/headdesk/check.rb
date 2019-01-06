@@ -63,15 +63,15 @@ module Headdesk
       raise ArgumentError, 'Do not specify both if: and unless:' if
         conditions.key?(:if) && conditions.key?(:unless)
 
-      pass = condition?(conditions, :if) if conditions.key? :if
-      pass = !condition?(conditions, :unless) if conditions.key? :unless
+      pass = Check.condition?(conditions, :if) if conditions.key? :if
+      pass = !Check.condition?(conditions, :unless) if conditions.key? :unless
 
       skip = false
       raise ArgumentError, 'Do not specify both skip_if: and skip_unless:' if
         conditions.key?(:skip_if) && conditions.key?(:skip_unless)
 
-      skip = condition?(conditions, :skip_if) if conditions.key? :skip_if
-      skip = !condition?(conditions, :skip_unless) if conditions.key? :skip_unless
+      skip = Check.condition?(conditions, :skip_if) if conditions.key? :skip_if
+      skip = !Check.condition?(conditions, :skip_unless) if conditions.key? :skip_unless
 
       # TODO: greater_than, less_than, equals
 
@@ -103,20 +103,6 @@ module Headdesk
       return unless pass
 
       throw :halt_check
-    end
-
-    # :reek:ManualDispatch
-    def condition?(conditions, key)
-      condition = conditions.fetch(key, nil)
-      if !condition
-        false
-      elsif condition.respond_to? :call
-        condition.call
-      elsif %w[true false].include?(condition.to_s)
-        condition.to_s == 'true'
-      else
-        raise ArgumentError, 'fail_check and skip_check only accept truthy, falsy, nil, or Proc arguments'
-      end
     end
 
     def skip_check(conditions = {})
@@ -182,6 +168,20 @@ module Headdesk
         @all ||= []
         @all << klass
         klass.include(Check)
+      end
+    end
+
+    # :reek:ManualDispatch
+    def self.condition?(conditions, key)
+      condition = conditions.fetch(key, nil)
+      if !condition
+        false
+      elsif condition.respond_to? :call
+        condition.call
+      elsif %w[true false].include?(condition.to_s)
+        condition.to_s == 'true'
+      else
+        raise ArgumentError, 'fail_check and skip_check only accept truthy, falsy, nil, or Proc arguments'
       end
     end
   end
