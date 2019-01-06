@@ -14,7 +14,7 @@ module Headdesk
       @checks = []
     end
 
-    def << (value)
+    def <<(value)
       @checks << value
     end
 
@@ -60,7 +60,7 @@ module Headdesk
       to_h.to_json
     end
 
-    def describe ; end
+    def describe; end
   end
 
   #
@@ -70,8 +70,8 @@ module Headdesk
     def initialize(apk)
       super()
       @bundle_id = apk.android_manifest.xpath('//manifest').first.attributes['package']
-      @file_name =  apk.yaml['apkFileName']
-      @android_sdk =  apk.sdk_info
+      @file_name = apk.yaml['apkFileName']
+      @android_sdk = apk.sdk_info
     end
 
     def describe
@@ -82,10 +82,10 @@ module Headdesk
     end
 
     def to_h
-      super.merge({
+      super.merge(
         apk: true,
         android_sdk: 'foo'
-      })
+      )
     end
   end
 end
