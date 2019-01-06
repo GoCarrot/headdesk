@@ -39,9 +39,9 @@ module Headdesk
     def analize
       report = Headdesk::APKReport.new(self)
 
-      Headdesk::Check.for_apk.each do |check|
-        check_run = check.call_on(self)
-        report << check_run.report
+      Headdesk::Check.for_apk.each do |check_type|
+        check = check_type.new(self)
+        report << check.process
       end
 
       # TODO: Associated domains

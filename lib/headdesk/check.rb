@@ -26,15 +26,6 @@ module Headdesk
     # Class methods for Check
     #
     module ClassMethods
-      # :reek:ManualDispatch
-      def call_on(bundle)
-        check = new(bundle)
-        return check unless check.respond_to?(:call)
-
-        check.report[:status] = :skip unless check.preconditions?
-        check.process
-      end
-
       def describe(desc = nil)
         @last_desc = desc if desc
         @last_desc
@@ -49,7 +40,7 @@ module Headdesk
         steps: [],
         export: {}
       }
-      @status = :success
+      @status = :skip
     end
 
     def describe(desc = nil)
@@ -121,20 +112,23 @@ module Headdesk
       true
     end
 
-    def skip?
-      @status == :skip
-    end
-
-    def process
-      return self if skip?
-
+    def run
       before
       catch(:halt_check) do
         call
       end
       after
-      report[:status] = @status
-      self
+
+      @status
+    end
+
+    # :reek:ManualDispatch
+    def process
+      return report unless respond_to?(:call) && preconditions?
+
+      @status = :success
+      report[:status] = run
+      report
     end
 
     def before; end
