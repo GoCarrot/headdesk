@@ -14,6 +14,7 @@ module Headdesk
     #
     # Run apktool command
     #
+    # :reek:TooManyStatements
     def self.cmd(*args)
       _stdin, stdout, stderr, wait_thr = Open3.popen3('java', '-jar', apktool_jar, *args)
       r_stdout = stdout.gets(nil)
@@ -28,6 +29,7 @@ module Headdesk
     #
     # Unpacks an APK to the specified path
     #
+    # :reek:TooManyStatements
     def self.unpack_to(path, destination)
       throw CliError.new("File not found: #{path}") unless File.exist?(path)
       throw CliError.new("Path not found: #{destination}") unless Dir.exist?(destination)
