@@ -16,23 +16,6 @@ module Headdesk
                                                   'facebook_sdk_versions.yaml'
                                                 ))
 
-
-  def self.icon_for_status
-    {
-      success: '✔',
-      fail: '✘',
-      skip: '⇣'
-    }
-  end
-
-  def self.color_for_status
-    {
-      success: :green,
-      fail: :red,
-      skip: :cyan
-    }
-  end
-
   #
   # Error in CLI input
   #

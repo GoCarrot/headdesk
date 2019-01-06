@@ -4,7 +4,6 @@ require 'tmpdir'
 require 'thor'
 require 'headdesk'
 require 'awesome_print'
-require 'json'
 
 module Headdesk
   #
@@ -45,11 +44,11 @@ module Headdesk
 
         # Analize if requested
         Headdesk::Analize.at(output_path) if options[:analize]
-      rescue CliError => err
-        STDERR.puts err.message
+      rescue CliError => cli_err
+        STDERR.puts cli_err.message
         CLI.command_help(Thor::Base.shell.new, 'unpack')
         return 1
-      rescue StandardError => err
+      rescue StandardError => rb_err
         STDERR.puts err.message.red
         STDERR.puts err.backtrace.ai
         return 1
@@ -86,21 +85,13 @@ module Headdesk
       begin
         report = Headdesk::Analize.at(path)
 
-        STDOUT.puts report.to_json if options[:json]
-        return if options[:json]
-
-        STDOUT.puts "Bundle Id: #{report[:bundle_id]}"
-        STDOUT.puts "minSdkVersion: #{report[:android_sdk]['minSdkVersion']}" if report[:apk]
-        STDOUT.puts "targetSdkVersion: #{report[:android_sdk]['targetSdkVersion']}" if report[:apk]
-        report[:checks].each do |check|
-          STDOUT.puts "#{Headdesk.icon_for_status[check[:status]]} #{check[:description]}".public_send(Headdesk.color_for_status[check[:status]])
-          check[:steps].each do |step|
-            STDOUT.puts "  ↳ #{Headdesk.icon_for_status[step[:status]]} #{step[:description]}".public_send(Headdesk.color_for_status[step[:status]])
-          end
-          STDOUT.puts "  💾 #{check[:export].to_json}".pale unless check[:export].empty?
+        if options[:json]
+          STDOUT.puts report.to_json
+        else
+          STDOUT.puts report.to_s
         end
-      rescue CliError => err
-        STDERR.puts err.message
+      rescue CliError => cli_err
+        STDERR.puts cli_err.message
         CLI.command_help(Thor::Base.shell.new, 'analize')
         return 1
       rescue StandardError => err

@@ -6,6 +6,7 @@ require 'yaml'
 require 'headdesk/apk/class'
 require 'headdesk/apk/resources'
 require 'headdesk/check'
+require 'headdesk/report'
 
 module Headdesk
   #
@@ -33,18 +34,11 @@ module Headdesk
     end
 
     def analize
-      report = {
-        apk: true,
-        ipa: false,
-        bundle_id: @android_manifest.xpath('//manifest').first.attributes['package'],
-        file_name: @yaml['apkFileName'],
-        android_sdk: @sdk_info,
-        checks: []
-      }
+      report = Headdesk::APKReport.new(self)
 
       Headdesk::Check.for_apk.each do |check|
         check_run = check.call_on(self)
-        report[:checks] << check_run.report
+        report << check_run.report
       end
 
       # TODO: Associated domains
