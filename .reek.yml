@@ -6,4 +6,5 @@ detectors:
     - 'Thor::Base.shell'
     - 'CLI.command_help'
   TooManyStatements:
-    enabled: false
+    exclude:
+    - 'Headdesk::Checks'
