@@ -15,6 +15,8 @@ module Headdesk
   # :reek:TooManyInstanceVariables
   class Apk
     attr_reader :yaml, :sdk_info, :android_manifest, :resources
+
+    # :reek:TooManyStatements
     def initialize(path)
       @path = path
 
