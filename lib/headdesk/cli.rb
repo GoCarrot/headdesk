@@ -9,6 +9,7 @@ module Headdesk
   #
   # headdesk CLI
   #
+  # :reek:TooManyStatements
   class CLI < Thor
     desc 'unpack FILE [DESTINATION]', 'Unpack an APK or IPA to [DESTINATION] or to the current directory'
     method_option :analize, type: :boolean, aliases: '-a'
