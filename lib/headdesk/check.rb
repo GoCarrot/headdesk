@@ -6,6 +6,7 @@ module Headdesk
   #
   # Check for a potential issue in an apk or ipa
   #
+  # :reek:ModuleInitialize
   module Check
     attr_reader :report, :status, :apk, :ipa
 
@@ -25,6 +26,7 @@ module Headdesk
     # Class methods for Check
     #
     module ClassMethods
+      # :reek:ManualDispatch
       def call_on(bundle)
         check = new(bundle)
         return check unless check.respond_to?(:call)
@@ -55,6 +57,7 @@ module Headdesk
       @last_desc
     end
 
+    # :reek:ManualDispatch
     def check_control_flow(status_to_assign, conditions = nil)
       pass = !conditions || conditions.empty?
       raise ArgumentError, 'Do not specify both if: and unless:' if
@@ -102,6 +105,7 @@ module Headdesk
       throw :halt_check
     end
 
+    # :reek:ManualDispatch
     def condition?(conditions, key)
       condition = conditions.fetch(key, nil)
       if !condition

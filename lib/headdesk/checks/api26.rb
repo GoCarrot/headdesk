@@ -4,6 +4,7 @@ module Headdesk
   #
   # APKs should all target API 26+
   #
+  # :reek:UncommunicativeModuleName
   class Api26
     include Check::APK
 
