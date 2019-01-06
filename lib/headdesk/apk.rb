@@ -12,6 +12,7 @@ module Headdesk
   #
   # Representation of an APK file unpacked by apktool
   #
+  # :reek:TooManyInstanceVariables
   class Apk
     attr_reader :yaml, :sdk_info, :android_manifest, :resources
     def initialize(path)
