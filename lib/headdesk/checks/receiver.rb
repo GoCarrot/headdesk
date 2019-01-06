@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Headdesk
-    module Checks
+  module Checks
     #
     # Make sure all <reciever> blocks in AndroidManifest.xml point to a Java class
     # that exists in the APK.
