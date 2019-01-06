@@ -5,3 +5,5 @@ detectors:
     - 'apk.resources'
     - 'Thor::Base.shell'
     - 'CLI.command_help'
+  TooManyStatements:
+    enabled: false
