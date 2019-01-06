@@ -57,7 +57,7 @@ module Headdesk
       @last_desc
     end
 
-    # :reek:ManualDispatch
+    # :reek:ManualDispatch and :reek:TooManyStatements and :reek:FeatureEnvy
     def check_control_flow(status_to_assign, conditions = nil)
       pass = !conditions || conditions.empty?
       raise ArgumentError, 'Do not specify both if: and unless:' if
