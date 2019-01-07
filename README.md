@@ -1,8 +1,19 @@
 # Headdesk
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/headdesk`. To experiment with that code, run `bin/console` for an interactive prompt.
+Because we've all been there with Android.
 
-TODO: Delete this and the text above, and describe your gem
+`headdesk` automatically detects common issues with Android APKs. These are errors that we (at Teak) commonly see in customer support. It's like unit testing for your build system.
+
+This is output from the check that ensures that the version of the Facebook SDK (if present) has not been deprecated:
+
+      ✔ Facebook SDK version
+          ↳ ✔ APK contains class com.facebook.FacebookSdk
+          ↳ ✔ com.facebook.FacebookSdk contains getSdkVersion method
+          ↳ ✔ Found Facebook SDK version 4.33.0
+          ↳ ✔ Facebook SDK was released in the last 2 years (using 4.33.0, released 2018-05-01)
+          💾 {"facebook_sdk":{"major":4,"minor":33,"patch":0,"version":"4.33.0","date":"2018-05-01"}}
+
+`headdesk` can also output to JSON.
 
 ## Installation
 
@@ -22,7 +33,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Command line usage instruction:
+
+    $ bundle exec bin/headdesk
+
+    $ bundle exec bin/headdesk help [COMMAND]
+
+Analize an APK
+
+    $ bundle exec bin/headdesk analize [APK]
+
+This will unpack the APK to a temporary path, analize and print to STDOUT the results in plaintext. For JSON output pass `--json`.
+
+    $ bundle exec bin/headdesk analize --path [path to unpacked APK]
+
+This will analize an already unpacked APK.
+
+Unpack an APK
+
+    $ bundle exec bin/headdesk unpack APK [DESTINATION]
+
+This will unpack an APK to the specified DESTINATION, or to the current working directory.
+
+    $ bundle exec bin/headdesk unpack APK [DESTINATION] --analize
+
+This will unpack an APK to the specified DESTINATION, or to the current working directory, and then perform analysis.
 
 ## Development
 
@@ -32,7 +67,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/ZeroStride/headdesk.
+Bug reports and pull requests are welcome on GitHub at https://github.com/gocarrot/headdesk.
 
 ## License
 
