@@ -2,9 +2,9 @@ PATH
   remote: .
   specs:
     headdesk (0.1.0)
-      awesome_print
-      nokogiri
-      thor
+      awesome_print (~> 1.8)
+      nokogiri (>= 1.8.2)
+      thor (~> 0.20)
 
 GEM
   remote: https://rubygems.org/
@@ -78,8 +78,8 @@ DEPENDENCIES
   bundler (~> 1.16)
   headdesk!
   rake (~> 10.0)
-  reek
-  rspec
+  reek (~> 5.2)
+  rspec (~> 3.8)
   rubocop
 
 BUNDLED WITH
