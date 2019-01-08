@@ -35,27 +35,27 @@ Or install it yourself as:
 
 Command line usage instruction:
 
-    $ bundle exec exe/headdesk
+    $ headdesk
 
-    $ bundle exec exe/headdesk help [COMMAND]
+    $ headdesk help [COMMAND]
 
 Analize an APK
 
-    $ bundle exec exe/headdesk analize [APK]
+    $ headdesk analize [APK]
 
 This will unpack the APK to a temporary path, analize and print to STDOUT the results in plaintext. For JSON output pass `--json`.
 
-    $ bundle exec exe/headdesk analize --path [path to unpacked APK]
+    $ headdesk analize --path [path to unpacked APK]
 
 This will analize an already unpacked APK.
 
 Unpack an APK
 
-    $ bundle exec exe/headdesk unpack APK [DESTINATION]
+    $ headdesk unpack APK [DESTINATION]
 
 This will unpack an APK to the specified DESTINATION, or to the current working directory.
 
-    $ bundle exec exe/headdesk unpack APK [DESTINATION] --analize
+    $ headdesk unpack APK [DESTINATION] --analize
 
 This will unpack an APK to the specified DESTINATION, or to the current working directory, and then perform analysis.
 
