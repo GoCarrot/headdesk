@@ -39,6 +39,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.8'
 
   spec.add_dependency 'awesome_print', '~> 1.8'
-  spec.add_dependency 'nokogiri', '>= 1.8.2'
+  spec.add_dependency 'nokogiri', '~> 1.10'
   spec.add_dependency 'thor', '~> 0.20'
 end
