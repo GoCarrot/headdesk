@@ -84,7 +84,7 @@ module Headdesk
     def to_h
       super.merge(
         apk: true,
-        android_sdk: 'foo'
+        android_sdk: @android_sdk
       )
     end
   end
