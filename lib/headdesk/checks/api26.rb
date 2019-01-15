@@ -9,6 +9,7 @@ module Headdesk
     class Api26
       include Check::APK
 
+      check_name 'api26'
       describe 'targetSdkVersion must be at least 26'
       def call
         fail_check unless: -> { apk.targets_sdk 26 }

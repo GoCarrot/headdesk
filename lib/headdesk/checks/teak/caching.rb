@@ -9,6 +9,7 @@ module Headdesk
       class Caching
         include Checks::Teak::APK
 
+        check_name 'caching'
         describe 'Check for io_teak_enable_caching'
         def call
           describe 'Teak SDK version is lower than 2.0.0'

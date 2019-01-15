@@ -9,6 +9,7 @@ module Headdesk
       class Api21Icon
         include Checks::Teak::APK
 
+        check_name 'api21_icon'
         describe 'Check for API 21+ Teak icons'
         # :reek:UncommunicativeVariableName { accept: ['icon_v21'] }
         def call

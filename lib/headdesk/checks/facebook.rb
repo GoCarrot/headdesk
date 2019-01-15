@@ -10,6 +10,7 @@ module Headdesk
     class FacebookSDK
       include Check::APK
 
+      check_name 'facebook'
       describe 'Facebook SDK version'
       def call
         skip_check unless: -> { apk.class?('com/facebook/FacebookSdk') }

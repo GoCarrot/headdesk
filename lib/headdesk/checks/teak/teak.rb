@@ -9,6 +9,7 @@ module Headdesk
       class Configuration
         include Checks::Teak::APK
 
+        check_name 'configuration'
         describe 'Check Teak configuration'
         # :reek:UncommunicativeVariableName { accept: ['gcm_defaultSenderId'] }
         def call

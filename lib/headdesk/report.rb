@@ -39,7 +39,7 @@ module Headdesk
         Bundle Id: <%= bundle_id %>\n
         <%= describe %>\n
         <% for @check in checks %>
-          <%= color_for_status[@check[:status]] % icon_for_status[@check[:status]] %> <%= color_for_status[@check[:status]] % @check[:description] %>\n
+          <%= color_for_status[@check[:status]] % icon_for_status[@check[:status]] %> <%= color_for_status[@check[:status]] % (@check[:description] + " (" + @check[:name] + ")") %>\n
           <% for @step in @check[:steps] %>
             ↳ <%= color_for_status[@step[:status]] % icon_for_status[@step[:status]] %> <%= color_for_status[@step[:status]] % @step[:description] %>\n
           <% end %>

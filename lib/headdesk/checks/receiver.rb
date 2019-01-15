@@ -9,6 +9,7 @@ module Headdesk
     class Receiver
       include Check::APK
 
+      check_name 'receiver'
       describe 'All <receiver> blocks in AndroidManifest.xml point to valid Java classes'
       def call
         receivers = []

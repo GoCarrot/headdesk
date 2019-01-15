@@ -30,6 +30,11 @@ module Headdesk
         @last_desc = desc if desc
         @last_desc
       end
+
+      def check_name(cname = nil)
+        @check_name = cname if cname
+        @check_name
+      end
     end
 
     def initialize(bundle)
@@ -40,6 +45,7 @@ module Headdesk
         steps: [],
         export: {}
       }
+      @report[:name] = self.class.check_name if self.class.respond_to?(:check_name)
       @status = :skip
     end
 

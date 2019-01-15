@@ -23,6 +23,11 @@ module Headdesk
           def preconditions?
             false unless apk.class?('io.teak.sdk.Teak')
           end
+
+          def check_name(cname = nil)
+            cname = "teak.#{cname}" if cname
+            super(cname)
+          end
         end
 
         #
