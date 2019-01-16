@@ -60,8 +60,8 @@ module Headdesk
       }
     end
 
-    def to_json
-      to_h.to_json
+    def to_json(opts = {})
+      to_h.to_json(opts)
     end
 
     def describe; end

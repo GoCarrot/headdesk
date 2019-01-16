@@ -2,5 +2,5 @@
 
 module Headdesk
   APKTOOL_VERSION = '2.3.4'
-  VERSION = '0.5.1'
+  VERSION = '0.5.2'
 end
