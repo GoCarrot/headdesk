@@ -16,6 +16,11 @@ This is output from the check that ensures that the version of the Facebook SDK 
 
 `headdesk` can also output to JSON.
 
+## headdesk-lambda
+You can use `headdesk` easily from anywhere, without installing anything, using the hosted version.
+
+See [headdesk-lambda](https://github.com/gocarrot/headdesk-lambda) for usage instructions.
+
 ## Checks
 * [api26](docs/api26.md)
 * [facebook](docs/facebook.md)
@@ -52,7 +57,9 @@ Analize an APK
 
     $ headdesk analize [APK]
 
-This will unpack the APK to a temporary path, analize and print to STDOUT the results in plaintext. For JSON output pass `--json`.
+This will unpack the APK to a temporary path, analize and print to STDOUT the results in plaintext.
+
+For JSON output pass `--json`.
 
     $ headdesk analize --path [path to unpacked APK]
 
