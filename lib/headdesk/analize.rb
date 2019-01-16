@@ -4,11 +4,11 @@ require 'headdesk/apk'
 
 module Headdesk
   #
-  # Analize an APK/IPA
+  # analyze an APK/IPA
   #
-  class Analize
+  class analyze
     def self.at(path)
-      Headdesk::Apk.new(path).analize
+      Headdesk::Apk.new(path).analyze
     end
   end
 end

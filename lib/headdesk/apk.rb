@@ -36,7 +36,7 @@ module Headdesk
       end
     end
 
-    def analize
+    def analyze
       report = Headdesk::APKReport.new(self)
 
       Headdesk::Check.for_apk.each do |check_type|

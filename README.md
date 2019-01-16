@@ -48,17 +48,17 @@ Command line usage instruction:
 
     $ headdesk help [COMMAND]
 
-Analize an APK
+Analyze an APK
 
-    $ headdesk analize [APK]
+    $ headdesk analyze [APK]
 
-This will unpack the APK to a temporary path, analize and print to STDOUT the results in plaintext.
+This will unpack the APK to a temporary path, analyze and print to STDOUT the results in plaintext.
 
 For JSON output pass `--json`.
 
-    $ headdesk analize --path [path to unpacked APK]
+    $ headdesk analyze --path [path to unpacked APK]
 
-This will analize an already unpacked APK.
+This will analyze an already unpacked APK.
 
 Unpack an APK
 
@@ -66,7 +66,7 @@ Unpack an APK
 
 This will unpack an APK to the specified DESTINATION, or to the current working directory.
 
-    $ headdesk unpack APK [DESTINATION] --analize
+    $ headdesk unpack APK [DESTINATION] --analyze
 
 This will unpack an APK to the specified DESTINATION, or to the current working directory, and then perform analysis.
 
@@ -81,17 +81,17 @@ Single Command:
 
     $ curl -w "%{url_effective}" --upload-file "PATH_TO_YOUR_APK_FILE" \
         -L "`curl https://headdesk.cli-apps.teak.io/v1/url`" | \
-        curl --data @- --retry 10 https://headdesk.cli-apps.teak.io/v1/analize
+        curl --data @- --retry 10 https://headdesk.cli-apps.teak.io/v1/analyze
 
-Replace `PATH_TO_YOUR_APK_FILE` with the path to the APK file you want to analize.
+Replace `PATH_TO_YOUR_APK_FILE` with the path to the APK file you want to analyze.
 
 ### What this Does
 1. Requests a URL to upload the APK
     * `curl https://headdesk.cli-apps.teak.io/v1/url`
 2. Upload the APK to that URL, and write to STDOUT the URL it just used to upload
     * `curl -w "%{url_effective}" --upload-file "PATH_TO_YOUR_APK_FILE" -L [Result from Step 1]`
-3. Invoke the 'analize' endpoint, passing the result from Step 2 as the data (via reading from STDIN)
-    * `curl --data @- --retry 10 https://headdesk.cli-apps.teak.io/v1/analize`
+3. Invoke the 'analyze' endpoint, passing the result from Step 2 as the data (via reading from STDIN)
+    * `curl --data @- --retry 10 https://headdesk.cli-apps.teak.io/v1/analyze`
 
 ## Development
 
