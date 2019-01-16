@@ -6,7 +6,7 @@ module Headdesk
   #
   # analyze an APK/IPA
   #
-  class analyze
+  class Analyze
     def self.at(path)
       Headdesk::Apk.new(path).analyze
     end
