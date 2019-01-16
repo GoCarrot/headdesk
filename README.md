@@ -6,12 +6,13 @@ Because we've all been there with Android.
 
 This is output from the check that ensures that the version of the Facebook SDK (if present) has not been deprecated:
 
-      ✔ Facebook SDK version
-          ↳ ✔ APK contains class com.facebook.FacebookSdk
-          ↳ ✔ com.facebook.FacebookSdk contains getSdkVersion method
-          ↳ ✔ Found Facebook SDK version 4.33.0
-          ↳ ✔ Facebook SDK was released in the last 2 years (using 4.33.0, released 2018-05-01)
-          💾 {"facebook_sdk":{"major":4,"minor":33,"patch":0,"version":"4.33.0","date":"2018-05-01"}}
+    ✔ Facebook SDK version (https://github.com/GoCarrot/headdesk/blob/0.5.0/docs/facebook.md)
+
+        ↳ ✔ APK contains class com.facebook.FacebookSdk
+        ↳ ✔ com.facebook.FacebookSdk contains getSdkVersion method
+        ↳ ✔ Found Facebook SDK version 4.33.0
+        ↳ ✔ Facebook SDK was released in the last 2 years (using 4.33.0, released 2018-05-01)
+        💾 {"facebook_sdk":{"major":4,"minor":33,"patch":0,"version":"4.33.0","date":"2018-05-01"}}
 
 `headdesk` can also output to JSON.
 
