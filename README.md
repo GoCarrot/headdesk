@@ -15,6 +15,14 @@ This is output from the check that ensures that the version of the Facebook SDK 
 
 `headdesk` can also output to JSON.
 
+## Checks
+* [api26](docs/api26.md)
+* [facebook](docs/facebook.md)
+* [receiver](docs/receiver.md)
+* [teak/api21_icon](docs/teak/api21_icon.md)
+* [teak/caching](docs/teak/caching.md)
+* [teak/configuration](docs/teak/configuration.md)
+
 ## Installation
 
 Add this line to your application's Gemfile:

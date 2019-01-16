@@ -34,12 +34,16 @@ module Headdesk
       }
     end
 
+    def link
+      "\e[37;4m%s\e[0m"
+    end
+
     def to_s
       ERB.new(<<~DESCRIPTION, nil, '>').result(binding)
         Bundle Id: <%= bundle_id %>\n
         <%= describe %>\n
         <% for @check in checks %>
-          <%= color_for_status[@check[:status]] % icon_for_status[@check[:status]] %> <%= color_for_status[@check[:status]] % (@check[:description] + " (" + @check[:name] + ")") %>\n
+          <%= color_for_status[@check[:status]] % icon_for_status[@check[:status]] %> <%= color_for_status[@check[:status]] % @check[:description] %> (<%= link % @check[:doc] %>)\n
           <% for @step in @check[:steps] %>
             ↳ <%= color_for_status[@step[:status]] % icon_for_status[@step[:status]] %> <%= color_for_status[@step[:status]] % @step[:description] %>\n
           <% end %>

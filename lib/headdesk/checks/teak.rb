@@ -25,7 +25,7 @@ module Headdesk
           end
 
           def check_name(cname = nil)
-            cname = "teak.#{cname}" if cname
+            cname = "teak/#{cname}" if cname
             super(cname)
           end
         end

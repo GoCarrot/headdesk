@@ -35,6 +35,10 @@ module Headdesk
         @check_name = cname if cname
         @check_name
       end
+
+      def doc
+        "#{check_name}.md"
+      end
     end
 
     def initialize(bundle)
@@ -46,6 +50,7 @@ module Headdesk
         export: {}
       }
       @report[:name] = self.class.check_name if self.class.respond_to?(:check_name)
+      @report[:doc] = "https://github.com/GoCarrot/headdesk/blob/#{Headdesk::VERSION}/docs/#{self.class.doc}" if self.class.respond_to?(:check_name)
       @status = :skip
     end
 

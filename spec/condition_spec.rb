@@ -2,7 +2,7 @@
 
 require_relative '../lib/headdesk/check'
 
-describe Headdesk::Condition do
+describe Headdesk::Check do
   describe 'condition?' do
     it 'is truthy when key resolves to true' do
       expect(Headdesk::Check.condition?({ key: true }, :key)).to be_truthy
