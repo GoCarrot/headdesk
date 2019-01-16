@@ -16,11 +16,6 @@ This is output from the check that ensures that the version of the Facebook SDK 
 
 `headdesk` can also output to JSON.
 
-## headdesk-lambda
-You can use `headdesk` easily from anywhere, without installing anything, using the hosted version.
-
-See [headdesk-lambda](https://github.com/gocarrot/headdesk-lambda) for usage instructions.
-
 ## Checks
 * [api26](docs/api26.md)
 * [facebook](docs/facebook.md)
@@ -74,6 +69,29 @@ This will unpack an APK to the specified DESTINATION, or to the current working 
     $ headdesk unpack APK [DESTINATION] --analize
 
 This will unpack an APK to the specified DESTINATION, or to the current working directory, and then perform analysis.
+
+## headdesk-lambda
+You can use `headdesk` easily from anywhere, without installing anything, using the hosted version.
+
+### Usage
+
+Command line usage instruction:
+
+Single Command:
+
+    $ curl -w "%{url_effective}" --upload-file "PATH_TO_YOUR_APK_FILE" \
+        -L "`curl https://headdesk.cli-apps.teak.io/v1/url`" | \
+        curl --data @- --retry 10 https://headdesk.cli-apps.teak.io/v1/analize
+
+Replace `PATH_TO_YOUR_APK_FILE` with the path to the APK file you want to analize.
+
+### What this Does
+1. Requests a URL to upload the APK
+    * `curl https://headdesk.cli-apps.teak.io/v1/url`
+2. Upload the APK to that URL, and write to STDOUT the URL it just used to upload
+    * `curl -w "%{url_effective}" --upload-file "PATH_TO_YOUR_APK_FILE" -L [Result from Step 1]`
+3. Invoke the 'analize' endpoint, passing the result from Step 2 as the data (via reading from STDIN)
+    * `curl --data @- --retry 10 https://headdesk.cli-apps.teak.io/v1/analize`
 
 ## Development
 
