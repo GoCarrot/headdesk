@@ -21,7 +21,7 @@ module Headdesk
 
           describe "APK enables caching of Teak notification content (via 'io_teak_enable_caching')"
           fail_check unless: apk.resources
-                                .values(v: 21)
+                                .values
                                 .bool
                                 .io_teak_enable_caching
         end
