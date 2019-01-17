@@ -50,8 +50,6 @@ module Headdesk
           OpenStruct.new(@resources[method_name.to_s])
         end
 
-        private
-
         def self.api_versions(modifiers)
           mods = [nil]
           if modifiers.key?(:v)

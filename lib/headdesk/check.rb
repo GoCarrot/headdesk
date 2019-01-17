@@ -41,6 +41,7 @@ module Headdesk
       end
     end
 
+    # :reek:DuplicateMethodCall and :reek:ManualDispatch
     def initialize(bundle)
       @apk = bundle
       @ipa = bundle
