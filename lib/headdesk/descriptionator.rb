@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'headdesk/descriptionator/resources'
+
 module Headdesk
   #
   # Descriptions for APK methods
@@ -20,6 +22,10 @@ module Headdesk
 
     def min_sdk(gt_eq)
       "APK requires #{@unless ? 'at least' : 'less than'} API #{gt_eq}"
+    end
+
+    def resources
+      @resources ||= APKResourcesDescriber.new(@unless)
     end
   end
 

@@ -16,6 +16,14 @@ module Headdesk
         XmlCollection.new(@path, 'values', modifiers)
       end
 
+      def file?(file_name)
+        File.exist? path_for(file_name)
+      end
+
+      def path_for(file_name)
+        "#{@path}/#{file_name.sub(%r{^\/}, '')}"
+      end
+
       #
       # Collection of XML values for specific locale/api/etc
       #
