@@ -24,7 +24,7 @@ module Headdesk
           export icon: icon, icon_v21: icon_v21
 
           describe "APK contains a drawable for 'io_teak_small_notification_icon'"
-          fail_check unless: -> { icon && icon_v21 }
+          fail_check if: -> { icon.nil? || icon_v21.nil? }
 
           describe "'io_teak_small_notification_icon' for v21 is different from < v21"
           fail_check unless: -> { icon != icon_v21 }
