@@ -26,4 +26,9 @@ The configuration values for the Teak SDK.
 ```
 
 ## Reason
-Build configuration errors can cause
+Teak requires your Teak App Id, Teak API Key, GCM sender id, and Firebase App Id in order to function.
+
+## Resolution
+**Adobe AIR:** [Set up Teak support at the Application level](https://teak.readthedocs.io/projects/air/en/latest/android.html#set-up-teak-support-at-the-application-level)
+
+**Unity:** Use the `Edit/Teak` menu item to configure Teak inside Unity, or [Edit res/values/teak.xml](https://teak.readthedocs.io/projects/unity/en/latest/android.html#edit-res-values-teak-xml).

@@ -35,3 +35,8 @@ The values for `io_teak_small_notification_icon` for less than v21, and v21+.
 
 ## Reason
 Android 5+ uses [Material Design](https://material.io/design/iconography/#notification) and needs a white and transparant icon for proper display of notification icons in the tray.
+
+## Resolution
+**Adobe AIR:** [Set Notification Icons for your Game](https://teak.readthedocs.io/projects/air/en/latest/android.html#set-notification-icons-for-your-game)
+
+**Unity:** [Set Notification Icons for your Game](https://teak.readthedocs.io/projects/unity/en/latest/android.html#set-notification-icons-for-your-game)

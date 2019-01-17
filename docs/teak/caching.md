@@ -16,3 +16,9 @@ None.
 The Teak SDK uses [Android HTTP Caching](https://developer.android.com/training/efficient-downloads/redundant_redundant#ResponseCache) to prevent downloading redundant Notification assets.
 
 The `io_teak_enable_caching` setting allows you to disable this behavior, however it should be enabled unless your app, or an SDK that you use, makes uncommon assumptions.
+
+## Resolution
+Upgrade to the Teak 2.0 SDK, or add this to your Android resources XML:
+```xml
+    <bool name="io_teak_enable_caching">true</bool>
+```

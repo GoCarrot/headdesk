@@ -26,3 +26,6 @@ The recievers present in `AndroidManifest.xml`
 
 ## Reason
 Frequently, during app updates, build settings will change, or an SDK will be removed but the `<receiver>` inside of the `AndroidManifest.xml` will not get updated or removed. This causes the app to crash.
+
+## Resolution
+Remove the `<receiver>` blocks which are missing implementations, or add the libraries which provide the implementations.

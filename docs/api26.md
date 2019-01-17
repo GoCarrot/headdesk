@@ -12,3 +12,6 @@ As of November 1, 2018 Google Play requires that all apps, and app updates, targ
 
 > Google Play will require that new apps target at least Android 8.0 (API level 26) from August 1, 2018, and that app updates target Android 8.0 from November 1, 2018.
 Source: https://developer.android.com/distribute/best-practices/develop/target-sdk
+
+## Resolution
+Target API 26 or higher.
