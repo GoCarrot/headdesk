@@ -64,8 +64,9 @@ module Headdesk
       min_sdk_version >= gt_eq
     end
 
+    # :reek:NilCheck
     def class?(decl)
-      find_class(decl) != false
+      !find_class(decl).nil?
     end
 
     def find_class(decl)
