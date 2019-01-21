@@ -11,6 +11,12 @@ module Headdesk
   #
   # :reek:TooManyStatements
   class CLI < Thor
+    no_commands do
+      def print_update_message
+        STDOUT.puts format("\e[36m%s\e[0m", "Latest version is #{Headdesk::Versions.latest_version}, please run 'bundle update headdesk'")
+      end
+    end
+
     desc 'unpack FILE [DESTINATION]', 'Unpack an APK or IPA to [DESTINATION] or to the current directory'
     method_option :analyze, type: :boolean, aliases: '-a'
     def unpack(file, destination = nil)
@@ -90,6 +96,7 @@ module Headdesk
           STDOUT.puts report.to_json
         else
           STDOUT.puts report.to_s
+          print_update_message unless Headdesk::Versions.latest_version?
         end
       rescue CliError => cli_err
         STDERR.puts cli_err.message

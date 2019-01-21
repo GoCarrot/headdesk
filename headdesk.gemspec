@@ -15,6 +15,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/GoCarrot/headdesk'
   spec.license       = 'MIT'
 
+  spec.post_install_message = 'For breaking change announcements...'
+
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   # if spec.respond_to?(:metadata)
@@ -35,10 +37,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'reek', '~> 5.2'
   spec.add_development_dependency 'rspec', '~> 3.8'
 
   spec.add_dependency 'awesome_print', '~> 1.8'
+  spec.add_dependency 'gems', '~> 1.1'
   spec.add_dependency 'nokogiri', '~> 1.10'
   spec.add_dependency 'oily_png', '~> 1.2'
   spec.add_dependency 'thor', '~> 0.20'

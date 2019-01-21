@@ -2,6 +2,7 @@
 
 require 'headdesk/apktool'
 require 'headdesk/version'
+require 'headdesk/versions'
 require 'headdesk/analyze'
 require 'headdesk/apk'
 

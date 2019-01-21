@@ -23,9 +23,7 @@ module Headdesk
       android_manifest_xml = File.join(@path, 'AndroidManifest.xml').freeze
       apktool_yml = File.join(@path, 'apktool.yml').freeze
 
-      unless File.exist?(android_manifest_xml) && File.exist?(apktool_yml)
-        throw CliError.new('Path did not contain AndroidManifest.xml and/or apktool.yml')
-      end
+      throw CliError.new('Path did not contain AndroidManifest.xml and/or apktool.yml') unless File.exist?(android_manifest_xml) && File.exist?(apktool_yml)
 
       @yaml = YAML.load_file(apktool_yml)
       @sdk_info = @yaml['sdkInfo']
