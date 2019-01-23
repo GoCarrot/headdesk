@@ -120,9 +120,9 @@ module Headdesk
     #
     # version
     #
-    map %w[--version -v] => :__version
+    map %w[--version] => :__version
 
-    desc '--version, -v [COMPARE_VERSION]', 'Print, and optionally compare version.'
+    desc '--version [COMPARE_VERSION]', 'Print, and optionally compare version.'
     long_desc <<~LONGDESC
       `--version` will print the version to STDOUT, and if a newer version is available it will print out an update message to STDERR.
 
