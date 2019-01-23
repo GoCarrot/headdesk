@@ -7,6 +7,10 @@ module Headdesk
   # Version information from RubyGems.org
   #
   class Versions
+    def self.version
+      Gem::Version.new(VERSION)
+    end
+
     def self.versions
       Gems.versions('headdesk').collect do |version|
         Gem::Version.new(version['number'])
