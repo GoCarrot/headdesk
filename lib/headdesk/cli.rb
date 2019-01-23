@@ -24,14 +24,14 @@ module Headdesk
       unless File.exist?(file)
         STDERR.puts "Could not find: #{file}"
         CLI.command_help(Thor::Base.shell.new, 'unpack')
-        return 1
+        exit 1
       end
 
       # Make sure destination exists, if specified
       unless !destination || Dir.exist?(destination)
         STDERR.puts "Could not find destination path: #{destination}"
         CLI.command_help(Thor::Base.shell.new, 'unpack')
-        return 1
+        exit 1
       end
 
       begin
@@ -54,11 +54,11 @@ module Headdesk
       rescue CliError => cli_err
         STDERR.puts cli_err.message
         CLI.command_help(Thor::Base.shell.new, 'unpack')
-        return 1
+        exit 1
       rescue StandardError => rb_err
         STDERR.puts err.message.red
         STDERR.puts err.backtrace.ai
-        return 1
+        exit 1
       end
     end
 
@@ -70,7 +70,7 @@ module Headdesk
       unless !file || File.exist?(file)
         STDERR.puts "Could not find input file: #{file}"
         CLI.command_help(Thor::Base.shell.new, 'analyze')
-        return 1
+        exit 1
       end
 
       # Unpack APK if needed
@@ -85,7 +85,7 @@ module Headdesk
       unless Dir.exist?(path)
         STDERR.puts "Could not find path: #{path}"
         CLI.command_help(Thor::Base.shell.new, 'analyze')
-        return 1
+        exit 1
       end
 
       # analyze
@@ -101,11 +101,11 @@ module Headdesk
       rescue CliError => cli_err
         STDERR.puts cli_err.message
         CLI.command_help(Thor::Base.shell.new, 'analyze')
-        return 1
+        exit 1
       rescue StandardError => err
         STDERR.puts err.message.red
         STDERR.puts err.backtrace.ai
-        return 1
+        exit 1
       end
     ensure
       FileUtils.remove_entry(tmp_dir) if tmp_dir

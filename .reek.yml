@@ -5,6 +5,7 @@ detectors:
     - 'apk.resources'
     - 'Thor::Base.shell'
     - 'CLI.command_help'
+    - 'exit'
   TooManyStatements:
     exclude:
     - 'Headdesk::Checks'
