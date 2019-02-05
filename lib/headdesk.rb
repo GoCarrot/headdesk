@@ -22,4 +22,20 @@ module Headdesk
   #
   class CliError < StandardError
   end
+
+  #
+  # Helper for CLI command modules
+  #
+  module CliCommand
+    extend Enumerable
+
+    def self.each(&block)
+      @commands.each(&block)
+    end
+
+    def self.included(cmd)
+      @commands ||= []
+      @commands << cmd
+    end
+  end
 end

@@ -9,3 +9,4 @@ detectors:
   TooManyStatements:
     exclude:
     - 'Headdesk::Checks'
+    - 'Headdesk::CliCommands'
