@@ -4,8 +4,5 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'reek'
-gem 'rubocop'
-
 # Specify your gem's dependencies in headdesk.gemspec
 gemspec
