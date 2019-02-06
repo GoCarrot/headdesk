@@ -48,7 +48,7 @@ Command line usage instruction:
 
     $ headdesk help [COMMAND]
 
-Analyze an APK
+### analyze -- Analyze an APK
 
     $ headdesk analyze [APK]
 
@@ -60,7 +60,7 @@ For JSON output pass `--json`.
 
 This will analyze an already unpacked APK.
 
-Unpack an APK
+### unpack -- Unpack an APK
 
     $ headdesk unpack APK [DESTINATION]
 
@@ -69,6 +69,16 @@ This will unpack an APK to the specified DESTINATION, or to the current working 
     $ headdesk unpack APK [DESTINATION] --analyze
 
 This will unpack an APK to the specified DESTINATION, or to the current working directory, and then perform analysis.
+
+### blame -- Find Symbols Inside AAR/JAR Files
+
+    $ headdesk blame SYMBOL [PATH]
+
+This will search for all JAR and AAR files in PATH for SYMBOL, and display matching packages and symbols.
+
+PATH defaults to the current directory.
+
+For JSON output pass `--json`.
 
 ## headdesk-lambda
 You can use `headdesk` easily from anywhere, without installing anything, using the hosted version.
