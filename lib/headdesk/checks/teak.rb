@@ -12,18 +12,14 @@ module Headdesk
       module APK
         def self.included(klass)
           klass.include(Check::APK)
-          klass.extend(Preconditions)
-          klass.include(Utility)
+          klass.extend(ClassMethods)
+          klass.include(InstanceMethods)
         end
 
         #
-        # Precondition tests for presence of Teak class SDK in APK
+        # Class methods for Teak based checks
         #
-        module Preconditions
-          def preconditions?
-            false unless apk.class?('io.teak.sdk.Teak')
-          end
-
+        module ClassMethods
           def check_name(cname = nil)
             cname = "teak/#{cname}" if cname
             super(cname)
@@ -31,9 +27,13 @@ module Headdesk
         end
 
         #
-        # Utility methods for Teak based checks
+        # Instance methods for Teak based checks
         #
-        module Utility
+        module InstanceMethods
+          def preconditions?
+            false unless apk.class?('io.teak.sdk.Teak')
+          end
+
           def teak_sdk
             return @teak_sdk if @teak_sdk
 
