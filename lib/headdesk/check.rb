@@ -45,14 +45,15 @@ module Headdesk
     def initialize(bundle)
       @apk = bundle
       @ipa = bundle
+      @status = :skip
       @report = {
         description: self.class.describe,
         steps: [],
-        export: {}
+        export: {},
+        status: @status
       }
       @report[:name] = self.class.check_name if self.class.respond_to?(:check_name)
       @report[:doc] = "https://github.com/GoCarrot/headdesk/blob/#{Headdesk::VERSION}/docs/#{self.class.doc}" if self.class.respond_to?(:check_name)
-      @status = :skip
     end
 
     def describe(desc = nil)
