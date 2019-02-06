@@ -8,7 +8,8 @@ module Headdesk
   #
   class ApkTool
     def self.apktool_jar
-      "ext/apktool_#{APKTOOL_VERSION}.jar"
+      File.join(File.dirname(__FILE__), '..', '..',
+        "ext/apktool_#{APKTOOL_VERSION}.jar")
     end
 
     #
