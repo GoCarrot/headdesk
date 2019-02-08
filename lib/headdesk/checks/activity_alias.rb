@@ -23,10 +23,13 @@ module Headdesk
 
         aliases = []
         apk.android_manifest.xpath('application/activity-alias').each do |activity_alias|
-          describe "AndroidManifest.xml contains <activity> '#{activity_alias.attributes['targetActivity']}'"
-          fail_check if: apk.android_manifest.xpath("application/activity[@android:name='#{activity_alias.attributes['targetActivity']}']").empty?
+          old_activity = activity_alias.attributes['name']
+          new_activity = activity_alias.attributes['targetActivity']
 
-          describe "<activity-alias> '#{activity_alias.attributes['name']}' -> '#{activity_alias.attributes['targetActivity']}' has '<intent-filter>'"
+          describe "AndroidManifest.xml contains <activity> '#{new_activity}'"
+          fail_check if: apk.android_manifest.xpath("application/activity[@android:name='#{new_activity}']").empty?
+
+          describe "<activity-alias> '#{old_activity}' -> '#{new_activity}' has '<intent-filter>'"
           fail_check if: activity_alias.xpath('intent-filter').empty?
 
           describe "<intent-filter> contains '<action android:name=\"android.intent.action.MAIN\" />'"
@@ -36,8 +39,8 @@ module Headdesk
           fail_check if: activity_alias.xpath("intent-filter/category[@android:name='android.intent.category.LAUNCHER']").empty?
 
           aliases << {
-            name: activity_alias.attributes['name'],
-            targetActivity: activity_alias.attributes['targetActivity']
+            name: old_activity,
+            targetActivity: new_activity
           }
         end
         export aliases: aliases

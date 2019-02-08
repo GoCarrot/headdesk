@@ -9,6 +9,7 @@ module Headdesk
     #
     # Find out which JAR/AAR is bringing in symbols
     #
+    # :reek:NilCheck, :reek:NestedIterators
     module Blame
       include Headdesk::CliCommand
 

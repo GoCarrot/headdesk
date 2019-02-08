@@ -19,7 +19,11 @@ end
 #
 # Helpers for testing APK specs
 #
+# :reek:UtilityFunction
 module Apk
+  #
+  # Manifest base, and additions
+  #
   Manifest = Struct.new(:additions, :contents)
 
   def default_apk_with(manifest, &block)
