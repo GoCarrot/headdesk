@@ -7,4 +7,6 @@
 /spec/reports/
 /tmp/
 
+coverage
+
 .DS_Store
