@@ -13,10 +13,10 @@ Also verifies following files have the specified image dimensions:
 
 ## Will Fail If
 * There is no drawable resource for `io_teak_small_notification_icon`.
-* There is no v21 drawable resource for `io_teak_small_notification_icon`
+* There is no v21 drawable resource for `io_teak_small_notification_icon`.
 * The drawable resources point to the same image.
-* The v21 drawable resources do not exist, or are the incorrect size
-    * `drawable-mdpi/[icon_v21].png` does not exist, or is not 24x24
+* The v21 drawable resources do not exist, or are the incorrect size...
+    * `drawable-mdpi/[icon_v21].png` does not exist, or is not 24x2
     * `drawable-hdpi/[icon_v21].png` does not exist, or is not 36x36
     * `drawable-xhdpi/[icon_v21].png` does not exist, or is not 48x48
     * `drawable-xxhdpi/[icon_v21].png` does not exist, or is not 72x72
