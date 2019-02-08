@@ -16,7 +16,7 @@ module Headdesk
       include Check::APK
 
       check_name 'activity_alias'
-      describe "<activity-alias> is used to preserve app shortcuts"
+      describe '<activity-alias> is used to preserve app shortcuts'
       def call
         describe 'AndroidManifest.xml contains one or more <activity-alias>'
         skip_check if: apk.android_manifest.xpath('application/activity-alias').empty?
@@ -27,7 +27,7 @@ module Headdesk
           fail_check if: apk.android_manifest.xpath("application/activity[@android:name='#{activity_alias.attributes['targetActivity']}']").empty?
 
           describe "<activity-alias> '#{activity_alias.attributes['name']}' -> '#{activity_alias.attributes['targetActivity']}' has '<intent-filter>'"
-          fail_check if: activity_alias.xpath("intent-filter").empty?
+          fail_check if: activity_alias.xpath('intent-filter').empty?
 
           describe "<intent-filter> contains '<action android:name=\"android.intent.action.MAIN\" />'"
           fail_check if: activity_alias.xpath("intent-filter/action[@android:name='android.intent.action.MAIN']").empty?

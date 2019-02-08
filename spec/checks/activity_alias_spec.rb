@@ -8,7 +8,7 @@ describe Headdesk::Checks::ActivityAlias do
       it { should include status: :skip }
     end
 
-    manifest_with_missing_activity= application_manifest_adding <<-MANIFEST
+    manifest_with_missing_activity = application_manifest_adding <<-MANIFEST
       <activity-alias
           android:name="com.unity3d.player.UnityPlayerActivity"
           android:targetActivity="io.teak.sdk.wrapper.unity.TeakUnityPlayerActivity" >

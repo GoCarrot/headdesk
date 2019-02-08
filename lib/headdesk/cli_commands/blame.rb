@@ -56,7 +56,7 @@ module Headdesk
             all_matches.each do |package, symbols|
               STDOUT.puts '📦 ' + package
               symbols.each do |match|
-                STDOUT.puts "  ↳ #{match[0]}#{match[1].green}#{match[2].chomp('.') if match[2]}"
+                STDOUT.puts "  ↳ #{match[0]}#{match[1].green}#{match[2]&.chomp('.')}"
               end
             end
 
@@ -72,7 +72,7 @@ module Headdesk
               .each(&:strip!)
               .map { |line| matcher.match(line) }
               .compact
-              .map { |match| match.captures.map { |capture| capture.tr('/', '.') if capture } }
+              .map { |match| match.captures.map { |capture| capture&.tr('/', '.') } }
       end
     end
   end

@@ -60,7 +60,7 @@ module Apk
           #{additions}
         </application>
       </manifest>
-      MANIFEST
-    )
+    MANIFEST
+  )
   end
 end
