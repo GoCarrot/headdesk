@@ -30,10 +30,14 @@ module Headdesk
       @sdk_info = @yaml['sdkInfo']
       @resources = Resources.new(@path)
 
-      @android_manifest = Nokogiri::XML(manifest_contents) if manifest_contents
-      @android_manifest ||= File.open(android_manifest_xml) do |file|
+      manifest = Nokogiri::XML(manifest_contents) if manifest_contents
+      manifest ||= File.open(android_manifest_xml) do |file|
         Nokogiri::XML(file)
       end
+
+      @android_manifest = manifest.xpath('manifest')
+      throw CliError.new('Invalid Android manifest') if @android_manifest.empty?
+      @android_manifest = @android_manifest.first
     end
 
     def analyze

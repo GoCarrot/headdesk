@@ -73,7 +73,7 @@ module Headdesk
   class APKReport < Report
     def initialize(apk)
       super()
-      @bundle_id = apk.android_manifest.xpath('//manifest').first.attributes['package']
+      @bundle_id = apk.android_manifest.attributes['package']
       @file_name = apk.yaml['apkFileName']
       @android_sdk = apk.sdk_info
     end
