@@ -17,19 +17,21 @@ module Headdesk
     attr_reader :yaml, :sdk_info, :android_manifest, :resources
 
     # :reek:TooManyStatements
-    def initialize(path)
+    def initialize(path, manifest_contents = nil, yaml_contents = nil)
       @path = path
 
       android_manifest_xml = File.join(@path, 'AndroidManifest.xml').freeze
       apktool_yml = File.join(@path, 'apktool.yml').freeze
 
-      throw CliError.new('Path did not contain AndroidManifest.xml and/or apktool.yml') unless File.exist?(android_manifest_xml) && File.exist?(apktool_yml)
+      throw CliError.new('Path did not contain AndroidManifest.xml') unless File.exist?(android_manifest_xml) || manifest_contents
+      throw CliError.new('Path did not contain apktool.yml') unless File.exist?(apktool_yml) || yaml_contents
 
-      @yaml = YAML.load_file(apktool_yml)
+      @yaml = yaml_contents || YAML.load_file(apktool_yml)
       @sdk_info = @yaml['sdkInfo']
       @resources = Resources.new(@path)
 
-      @android_manifest = File.open(android_manifest_xml) do |file|
+      @android_manifest = Nokogiri::XML(manifest_contents) if manifest_contents
+      @android_manifest ||= File.open(android_manifest_xml) do |file|
         Nokogiri::XML(file)
       end
     end
