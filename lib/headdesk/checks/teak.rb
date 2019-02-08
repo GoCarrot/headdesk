@@ -31,7 +31,7 @@ module Headdesk
         #
         module InstanceMethods
           def preconditions?
-            false unless apk.class?('io.teak.sdk.Teak')
+            apk.class?('io.teak.sdk.Teak')
           end
 
           def teak_sdk
