@@ -55,8 +55,8 @@ module Headdesk
               CLI.command_help(Thor::Base.shell.new, 'unpack')
               exit 1
             rescue StandardError => rb_err
-              STDERR.puts err.message.red
-              STDERR.puts err.backtrace.ai
+              STDERR.puts rb_err.message.red
+              STDERR.puts rb_err.backtrace.ai
               exit 1
             end
           end
