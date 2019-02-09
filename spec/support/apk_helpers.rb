@@ -33,23 +33,6 @@ module ApkHelpers
     Apk::Sdk.new(sdk_name, sdk_path)
   end
 
-  def default_apk_with(manifest, &block)
-    apk_with('default', manifest, &block)
-  end
-
-  def apk_with(apk_name = 'default', manifest, &block)
-    rng = Random.rand
-    apk_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'fixtures', 'apks', apk_name))
-    Apk.new(apk_path, self).with(manifest).tap do |apk|
-      context "when using #{apk_name} APK#{", with manifest additions: \n#{manifest.additions.pale}" unless manifest.additions.empty?}" do
-        context 'the report' do
-          subject(:report) { described_class.new(apk.to_headdesk_apk).process }
-          instance_exec(&block)
-        end
-      end
-    end
-  end
-
   def with_report_steps(&block)
     context 'the steps in the report' do
       subject(:steps) { report[:steps] }

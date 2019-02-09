@@ -4,7 +4,10 @@ require_relative '../../lib/headdesk/check'
 
 describe Headdesk::Checks::ActivityAlias do
   describe '#process' do
-    default_apk_with application_manifest do
+    #
+    # No <activity-alias>
+    #
+    apk.with application_manifest do
       it { should include status: :skip }
     end
 
@@ -15,7 +18,10 @@ describe Headdesk::Checks::ActivityAlias do
       </activity-alias>
     MANIFEST
 
-    default_apk_with manifest_with_missing_activity do
+    #
+    # <activity-alias> with missing <activity>
+    #
+    apk.with manifest_with_missing_activity do
       it { should include status: :fail }
 
       with_report_steps do
@@ -31,7 +37,10 @@ describe Headdesk::Checks::ActivityAlias do
       </activity-alias>
     MANIFEST
 
-    default_apk_with manifest_without_intent_filter do
+    #
+    # <activity-alias> with missing <intent-filter>
+    #
+    apk.with manifest_without_intent_filter do
       it { should include status: :fail }
 
       with_report_steps do
@@ -50,7 +59,10 @@ describe Headdesk::Checks::ActivityAlias do
       </activity-alias>
     MANIFEST
 
-    default_apk_with manifest_without_action_main do
+    #
+    # <intent-filter> without <action android:name="android.intent.action.MAIN" />
+    #
+    apk.with manifest_without_action_main do
       it { should include status: :fail }
 
       with_report_steps do
@@ -69,7 +81,10 @@ describe Headdesk::Checks::ActivityAlias do
       </activity-alias>
     MANIFEST
 
-    default_apk_with manifest_without_category_launcher do
+    #
+    # <intent-filter> without <category android:name="android.intent.category.LAUNCHER" />
+    #
+    apk.with manifest_without_category_launcher do
       it { should include status: :fail }
 
       with_report_steps do
@@ -89,7 +104,10 @@ describe Headdesk::Checks::ActivityAlias do
       </activity-alias>
     MANIFEST
 
-    default_apk_with correct_manifest do
+    #
+    # Properly configured <activity-alias>
+    #
+    apk.with correct_manifest do
       it { should include status: :success }
 
       with_report_steps do
