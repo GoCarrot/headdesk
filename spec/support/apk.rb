@@ -2,69 +2,75 @@
 
 require_relative '../../lib/headdesk'
 
-require 'awesome_print'
-
-RSpec::Matchers.define :succeed_with_description do |expected|
-  match do |actual|
-    expect(actual).to include a_hash_including(description: a_string_matching(expected), status: :success)
-  end
-end
-
-RSpec::Matchers.define :fail_with_description do |expected|
-  match do |actual|
-    expect(actual).to include a_hash_including(description: a_string_matching(expected), status: :fail)
-  end
-end
+require 'fileutils'
+require 'tmpdir'
 
 #
-# Helpers for testing APK specs
+# Class for composing test APK contents
 #
-# :reek:UtilityFunction
-module Apk
+class Apk
+  attr_reader :base_name, :manifest, :base_path, :context, :apk_path
+
+  def initialize(base_name, context)
+    @base_name = base_name
+    @base_path = File.expand_path(@base_name)
+    @context = context
+
+    @apk_path = Dir.mktmpdir
+    ObjectSpace.define_finalizer(self, self.class.cleanup(@apk_path))
+
+    FileUtils.copy_entry(@base_path, @apk_path)
+  end
+
+  def then(&block)
+    proc = Proc.new do |apk|
+      context "when using #{apk.base_name} APK#{", with manifest additions: \n#{apk.manifest.additions.pale}" unless apk.manifest.additions.empty?}" do
+        context 'the report' do
+          subject(:report) { described_class.new(apk.to_headdesk_apk).process }
+          instance_exec(&block)
+        end
+      end
+    end
+
+    @context.instance_exec self, &proc
+  end
+
+  def self.cleanup(tmp_dir)
+    proc { FileUtils.remove_entry(tmp_dir) if tmp_dir }
+  end
+
+  def and(other, &block)
+    with(other, &block)
+  end
+
+  def with(other, &block)
+    case other
+    when String, Symbol then with(@context.instance_exec &proc { sdk(other) })
+    when Manifest then @manifest = other
+    when Sdk then add_sdk(other)
+    when Hash then other.each_value { |value| with(value) }
+    when Array then other.each { |value| with(value) }
+    end
+    self.then(&block) if block_given?
+    self
+  end
+
+  def add_sdk(sdk)
+    FileUtils.copy_entry(sdk.path, @apk_path)
+    self
+  end
+
+  def to_headdesk_apk
+    Headdesk::Apk.new(@apk_path, @manifest&.contents, @yaml)
+  end
+
+  #
+  # Sdk
+  #
+  Sdk = Struct.new(:name, :path)
+
   #
   # Manifest base, and additions
   #
   Manifest = Struct.new(:additions, :contents)
-
-  def default_apk_with(manifest, &block)
-    apk_with('default', manifest, &block)
-  end
-
-  def apk_with(apk = 'default', manifest, &block)
-    context "when using the #{apk} APK#{", with manifest additions: \n#{manifest.additions.pale}" unless manifest.additions.empty?}" do
-      apk_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'fixtures', "#{apk}_apk"))
-      context 'the report' do
-        subject(:report) { described_class.new(Headdesk::Apk.new(apk_path, manifest.contents)).process }
-        instance_exec(&block)
-      end
-    end
-  end
-
-  def with_report_steps(&block)
-    context 'the steps in the report' do
-      subject(:steps) { report[:steps] }
-      instance_exec(&block)
-    end
-  end
-
-  def application_manifest
-    application_manifest_adding
-  end
-
-  def application_manifest_adding(additions = '')
-    Manifest.new(additions.rstrip, <<~MANIFEST
-      <?xml version="1.0" encoding="utf-8"?>
-      <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:amazon="http://schemas.amazon.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                package="rspec.headdesk"
-                android:versionCode="1"
-                android:versionName="1.0">
-        <application>
-          #{additions}
-        </application>
-      </manifest>
-    MANIFEST
-  )
-  end
 end
