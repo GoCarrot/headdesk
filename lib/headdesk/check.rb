@@ -53,7 +53,7 @@ module Headdesk
         status: @status
       }
       @report[:name] = self.class.check_name if self.class.respond_to?(:check_name)
-      @report[:doc] = "https://github.com/GoCarrot/headdesk/blob/#{Headdesk::VERSION}/docs/#{self.class.doc}" if self.class.respond_to?(:check_name)
+      @report[:doc] = "https://github.com/GoCarrot/headdesk/blob/v#{Headdesk::VERSION}/docs/#{self.class.doc}" if self.class.respond_to?(:check_name)
     end
 
     def describe(desc = nil)
