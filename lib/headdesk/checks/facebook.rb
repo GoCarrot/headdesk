@@ -29,8 +29,13 @@ module Headdesk
           sdk[:major] == major && sdk[:minor] == minor && sdk[:patch] == patch
         end).first
 
-        describe "Found Facebook SDK version #{sdk_in_use[:version]}"
-        fail_check if: -> { !sdk_in_use }
+        begin
+          describe "Found Facebook SDK version #{sdk_in_use[:version]}"
+          fail_check if: -> { !sdk_in_use }
+        rescue NoMethodError => _e
+          describe "Facebook SDK version #{major}.#{minor}.#{patch} not found, run 'bundle exec bin/facebook_sdk_versions'"
+          fail_check
+        end
 
         export facebook_sdk: sdk_in_use
 
