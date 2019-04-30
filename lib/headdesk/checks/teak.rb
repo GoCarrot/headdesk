@@ -31,21 +31,22 @@ module Headdesk
         #
         module InstanceMethods
           def preconditions?
-            apk.class?('io.teak.sdk.Teak')
+            begin
+              major, minor, revision = apk.find_class('io.teak.sdk.Teak')
+                                          .field('SDKVersion')
+                                          .value
+                                          .to_version
+              @teak_sdk = OpenStruct.new(
+                version: "#{major}.#{minor}.#{revision}",
+                major: major, minor: minor, revision: revision
+              )
+            rescue NoMethodError => _e
+              return false
+            end
+            true
           end
 
           def teak_sdk
-            return @teak_sdk if @teak_sdk
-
-            major, minor, revision = apk.find_class('io.teak.sdk.Teak')
-                                        .field('SDKVersion')
-                                        .value
-                                        .to_version
-            @teak_sdk = OpenStruct.new(
-              version: "#{major}.#{minor}.#{revision}",
-              major: major, minor: minor, revision: revision
-            )
-
             @teak_sdk
           end
         end
