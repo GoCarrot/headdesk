@@ -21,7 +21,6 @@ This is output from the check that ensures that the version of the Facebook SDK 
 * [facebook](docs/facebook.md)
 * [receiver](docs/receiver.md)
 * [teak/api21_icon](docs/teak/api21_icon.md)
-* [teak/caching](docs/teak/caching.md)
 * [teak/configuration](docs/teak/configuration.md)
 
 ## Installation
