@@ -12,14 +12,16 @@ module Headdesk
     end
 
     def self.versions
-      Gems.versions('headdesk').collect do |version|
-        Gem::Version.new(version['number'])
-      rescue StandardError
-        nil
-      end
+      begin
+        Gems.versions('headdesk').collect do |version|
+          Gem::Version.new(version['number'])
+        end
           .compact
           .sort
           .reverse
+      rescue StandardError
+        nil
+      end
     end
 
     def self.latest_version
