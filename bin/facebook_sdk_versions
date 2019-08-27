@@ -6,19 +6,35 @@ require 'nokogiri'
 require 'open-uri'
 require 'yaml'
 
-html_doc = Nokogiri::HTML(open('https://developers.facebook.com/docs/android/change-log-4x'))
+@facebook_sdk_versions = {}
 
-facebook_sdk_versions = html_doc.xpath('//h2')
-                                .select { |h2| h2.attributes['id'].value =~ /^\d+_\d+_\d+$/ }
-                                .collect do |h2|
-  major, minor, patch, date = h2.text.match(/^(\d+)\.(\d+)\.?(\d+)? \- (.*)$/).captures
-  {
+def add_version(str, matcher)
+  major, minor, patch, date = str.match(matcher).captures
+  version_string = "#{major.to_i || 0}.#{minor.to_i || 0}.#{patch.to_i || 0}"
+  @facebook_sdk_versions[version_string] = {
     major: major.to_i || 0,
     minor: minor.to_i || 0,
     patch: patch.to_i || 0,
-    version: "#{major.to_i || 0}.#{minor.to_i || 0}.#{patch.to_i || 0}",
+    version: version_string,
     date: Date.parse(date)
   }
 end
 
-File.write(Headdesk::FACEBOOK_SDK_VERSIONS_YAML, facebook_sdk_versions.to_yaml)
+html_doc = Nokogiri::HTML(open('https://developers.facebook.com/docs/android/change-log-4x'))
+
+html_match = /^(\d+)\.(\d+)\.?(\d+)? \- (.*)$/
+html_doc.xpath('//h2')
+        .select { |h2| html_match.match?(h2.text) }
+        .collect do |h2|
+  add_version(h2.text, html_match)
+end
+
+changelog_md = open('https://raw.githubusercontent.com/facebook/facebook-android-sdk/master/CHANGELOG.md') { |f| f.read }
+
+markdown_match = /^## \[(\d+)\.(\d+)\.?(\d+)?\] \- (.*)$/
+changelog_md.each_line.select { |line| markdown_match.match?(line) }
+                      .collect do |line|
+  add_version(line, markdown_match)
+end
+
+File.write(Headdesk::FACEBOOK_SDK_VERSIONS_YAML, @facebook_sdk_versions.values.to_yaml)
