@@ -295,6 +295,61 @@
   :version: 4.0.0
   :date: 2015-03-25
 - :major: 5
+  :minor: 13
+  :patch: 0
+  :version: 5.13.0
+  :date: 2019-12-11
+- :major: 5
+  :minor: 12
+  :patch: 1
+  :version: 5.12.1
+  :date: 2019-12-08
+- :major: 5
+  :minor: 12
+  :patch: 0
+  :version: 5.12.0
+  :date: 2019-12-03
+- :major: 5
+  :minor: 11
+  :patch: 2
+  :version: 5.11.2
+  :date: 2019-11-21
+- :major: 5
+  :minor: 11
+  :patch: 1
+  :version: 5.11.1
+  :date: 2019-11-21
+- :major: 5
+  :minor: 11
+  :patch: 0
+  :version: 5.11.0
+  :date: 2019-11-14
+- :major: 5
+  :minor: 9
+  :patch: 0
+  :version: 5.9.0
+  :date: 2019-10-28
+- :major: 5
+  :minor: 8
+  :patch: 0
+  :version: 5.8.0
+  :date: 2019-10-08
+- :major: 5
+  :minor: 5
+  :patch: 2
+  :version: 5.5.2
+  :date: 2019-10-04
+- :major: 5
+  :minor: 5
+  :patch: 1
+  :version: 5.5.1
+  :date: 2019-09-05
+- :major: 5
+  :minor: 5
+  :patch: 0
+  :version: 5.5.0
+  :date: 2019-08-30
+- :major: 5
   :minor: 4
   :patch: 0
   :version: 5.4.0
@@ -304,6 +359,11 @@
   :patch: 0
   :version: 5.2.0
   :date: 2019-07-29
+- :major: 5
+  :minor: 1
+  :patch: 1
+  :version: 5.1.1
+  :date: 2019-07-21
 - :major: 5
   :minor: 1
   :patch: 0
