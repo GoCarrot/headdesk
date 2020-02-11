@@ -100,6 +100,25 @@ module Headdesk
     def initialize(ipa)
       super()
       @bundle_id = ipa.info_plist['CFBundleIdentifier']
+      @url_schemes = ipa.url_schemes
+      @entitlements = ipa.entitlements
+    end
+
+    def describe
+      <<~DESCRIPTION
+        URL Schemes: #{@url_schemes}
+        Team Id: #{@entitlements.team_identifier}
+        Associated Domains: #{@entitlements.associated_domains}
+      DESCRIPTION
+    end
+
+    def to_h
+      super.merge(
+        ipa: true,
+        url_schemes: @url_schemes,
+        team_id: @entitlements.team_identifier,
+        associated_domains: @entitlements.associated_domains
+      )
     end
   end
 end
