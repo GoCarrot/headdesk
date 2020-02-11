@@ -11,11 +11,11 @@ module Headdesk
     attr_reader :report, :status, :apk, :ipa
 
     def self.for_apk
-      APK.all
+      APK.all || []
     end
 
     def self.for_ipa
-      IPA.all
+      IPA.all || []
     end
 
     def self.included(klass)
