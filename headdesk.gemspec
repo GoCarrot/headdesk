@@ -38,5 +38,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'gems', '~> 1.1'
   spec.add_dependency 'nokogiri', '~> 1.10'
   spec.add_dependency 'oily_png', '~> 1.2'
+  spec.add_dependency 'plist', '~> 3.5'
   spec.add_dependency 'thor', '~> 0.20'
 end

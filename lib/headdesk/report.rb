@@ -92,4 +92,14 @@ module Headdesk
       )
     end
   end
+
+  #
+  # Report from an IPA analysis
+  #
+  class IPAReport < Report
+    def initialize(ipa)
+      super()
+      @bundle_id = ipa.info_plist['CFBundleIdentifier']
+    end
+  end
 end

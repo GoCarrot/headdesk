@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'headdesk/apk'
+require 'headdesk/ipa'
 
 module Headdesk
   #
@@ -8,7 +9,14 @@ module Headdesk
   #
   class Analyze
     def self.at(path)
-      Headdesk::Apk.new(path).analyze
+      begin
+        return Headdesk::Apk.new(path).analyze
+      rescue
+      end
+      begin
+        return Headdesk::Ipa.new(path).analyze
+      end
+      throw CliError.new('Path did not contain an unpacked IPA or APK.')
     end
   end
 end
