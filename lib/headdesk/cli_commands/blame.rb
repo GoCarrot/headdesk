@@ -61,7 +61,7 @@ module Headdesk
               end
             end
 
-            CLI.print_update_message unless Headdesk::Versions.latest_version?
+            print_update_message unless Headdesk::Versions.latest_version?
 
             exit !all_matches.empty?
           end

@@ -49,7 +49,7 @@ module Headdesk
               # analyze if requested
               Headdesk::Analyze.at(output_path) if options[:analyze]
 
-              CLI.print_update_message unless Headdesk::Versions.latest_version?
+              print_update_message unless Headdesk::Versions.latest_version?
             rescue CliError => cli_err
               STDERR.puts cli_err.message
               CLI.command_help(Thor::Base.shell.new, 'unpack')

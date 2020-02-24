@@ -48,7 +48,7 @@ module Headdesk
                 STDOUT.puts report.to_json
               else
                 STDOUT.puts report.to_s
-                CLI.print_update_message unless Headdesk::Versions.latest_version?
+                print_update_message unless Headdesk::Versions.latest_version?
               end
             rescue CliError => cli_err
               STDERR.puts cli_err.message
