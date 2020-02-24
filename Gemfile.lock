@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    headdesk (0.15.1)
+    headdesk (0.16.0)
       awesome_print (~> 1.8)
       gems (~> 1.1)
       nokogiri (~> 1.10)

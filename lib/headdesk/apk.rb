@@ -52,6 +52,23 @@ module Headdesk
       report
     end
 
+    def unity_version
+      unity_assets = File.join(@path, 'assets', 'bin', 'Data').freeze
+      return nil unless Dir.exist?(unity_assets)
+
+      asset_file = Dir[File.join(unity_assets, '/*')].first
+      return nil unless asset_file
+
+      version_bytes = []
+      File.open(asset_file, 'rb') do |file|
+        file.read(16) # Throw the first 16 bytes away
+        file.read(16).each_byte do |byte|
+          version_bytes << byte if byte > 0
+        end
+        return version_bytes.pack('c*')
+      end
+    end
+
     def target_sdk_version
       sdk_info['targetSdkVersion'].to_i
     end
