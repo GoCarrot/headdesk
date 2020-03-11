@@ -25,6 +25,8 @@ module Headdesk
       @path = File.join(@path, 'unknown') if was_unpacked_by_apktool
       @path = Dir[File.join(@path, 'Payload','*.app')].first
 
+      throw CliError.new('Path did not contain Info.plist') unless @path && Dir.exist?(@path)
+
       info_plist_path = File.join(@path, 'Info.plist').freeze
 
       throw CliError.new('Path did not contain Info.plist') unless File.exist?(info_plist_path)

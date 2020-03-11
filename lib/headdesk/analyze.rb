@@ -15,6 +15,7 @@ module Headdesk
       end
       begin
         return Headdesk::Ipa.new(path).analyze
+      rescue
       end
       throw CliError.new('Path did not contain an unpacked IPA or APK.')
     end
