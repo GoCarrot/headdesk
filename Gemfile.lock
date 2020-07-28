@@ -32,7 +32,7 @@ GEM
     gems (1.2.0)
     ice_nine (0.11.2)
     jaro_winkler (1.5.2)
-    json (2.1.0)
+    json (2.3.1)
     kwalify (0.7.2)
     mini_portile2 (2.4.0)
     nokogiri (1.10.8)
